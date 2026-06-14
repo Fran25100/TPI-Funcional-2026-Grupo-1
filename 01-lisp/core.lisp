@@ -319,6 +319,7 @@ IMPACTO: No destructiva
         (nth 5 (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216 (mod unix 216))) 216)))))
     )					
 )
+;lo cambiamos a nth ya que utilizar car/cdr duplicaba o utilizaba algunos valores erroneos
 
 ;Extension 2, sistema de datos
 
