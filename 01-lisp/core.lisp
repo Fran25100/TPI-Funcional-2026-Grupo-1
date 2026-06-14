@@ -4,8 +4,6 @@ NATURALEZA: Pura
 ESTRATEGIA: estructura condicional (implementada con COND)
 IMPACTO: No destructiva
 -------------------------------------------------------------------------------------------------------------------|#
-(load "C:/"    "/"    "/quicklisp/setup.lisp") ;ingresar la direccion donde se encuentra su quicklisp.lisp
-(ql:quickload "local-time") 
 
 (defun transicion (color-actual cambiar-a)
     (cond
