@@ -8,13 +8,25 @@ def transicion(colorActual: String, colorACambiar: String): List[String] = { // 
     case ("en-amarillo", "rojo") => List(colorActual, "cambiar-a-rojo")
     // caso 3. => indica hacia que lado apunta el resultado, en este caso el mensaje a imprimir
     case _ => List(colorActual, "accion-por-defecto")
+    // caso 4. => indica que si no se cumple con las condiciones anteriores, este devuelve el color actual y accion por defecto
   }
 }
 
 /*casos probados
-transicion("rojo", "amarillo")
-List(rojo, accion-por-defeto)
+transicion("en-rojo", "amarillo")
+List(en-rojo, accion-por-defeto)
 
-transicion("rojo", "verde")
-List(rojo, color-a-verde )
+transicion("en-rojo", "verde")
+List(en-rojo, cambiar-a-verde )
+
+transicion("en-verde", "amarillo")
+List(en-verde, cambiar-a-amarillo)
+
+transicion("amarillo", "rojo")
+List(en-amarillo, cambiar-a-rojo)
 */
+
+/*funcion timer*/
+def timer() = {
+  
+}
