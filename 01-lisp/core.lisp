@@ -4,6 +4,9 @@ NATURALEZA: Pura
 ESTRATEGIA: estructura condicional (implementada con COND)
 IMPACTO: No destructiva
 -------------------------------------------------------------------------------------------------------------------|#
+
+(ql:quickload "local-time") 
+
 (defun transicion (color-actual cambiar-a)
     (cond
         ((and (equal color-actual 'en-verde) (equal cambiar-a 'cambiar-a-amarillo)) (list color-actual 'verde-intermitente "CAMBIAR-A-AMARILLO" ))
@@ -74,8 +77,13 @@ Impacto En Memoria: No Destructiva, no realiza cambios
 ;correcion: se automatizo el tiempo para que sea calculado directamente dentro de esta funcion, en vez de un tiempo que puede estar
 ;desactualizado, restamos al tiempo el cual esta dado desde 1970 unos 70 años para que se sicronicen correctamente. 
 
+(defun formatofecha ()
+  (local-time:format-timestring nil (local-time:now) :format '( #\[ (:year 4) #\- (:month 2) #\- (:day 2) #\space (:hour 2) #\: (:min 2) #\: (:sec 2) #\]
+    )
+  )
+)
 (defun logginLights (color-actual cambio-color)
-    (format nil "Tiempo ~D: la luz ah cambiado de color ~S a ~S" (- (get-universal-time) 2208988800) color-actual cambio-color)
+    (format nil "Tiempo ~D: la luz ah cambiado de color ~S a ~S" (formatofecha) color-actual cambio-color)
 )
 
 (print(logginLights 'en-rojo 'en-rojo-intermitente))
