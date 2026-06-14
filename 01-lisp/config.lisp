@@ -1,5 +1,0 @@
-(load "quicklisp.lisp")
-(quicklisp-quickstart:install)
-(load "~/quicklisp/setup.lisp")
-(ql:quickload "local-time")
-(load "core.lisp")
