@@ -78,27 +78,27 @@ Impacto En Memoria: No Destructiva, no realiza cambios
 ;desactualizado, restamos al tiempo el cual esta dado desde 1970 unos 70 años para que se sicronicen correctamente. 
 
 (defun logginLights (color-actual cambio-color)
-    (format nil "Tiempo ~A: la luz ah cambiado de color ~A a ~A" 
+    (format t "Tiempo ~A: la luz ah cambiado de color ~A a ~A" 
 		(local-time:format-timestring nil (local-time:now):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
 			(car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color))
 ) )
 
-(print(logginLights 'en-rojo 'en-rojo-intermitente))
+(logginLights 'en-rojo 'en-rojo-intermitente)
 ;Tiempo 1781220382: la luz ah cambiado de color EN-ROJO a EN-ROJO-INTERMITENTE
 
-(print(print(logginLights 'en-rojo-intermitente 'en-verde))
+(logginLights 'en-rojo-intermitente 'en-verde)
 ;Tiempo 1781220197: la luz ah cambiado de color EN-ROJO-INTERMITENTE a EN-VERDE
 
-(print(logginLights 'en-verde 'en-verde-intermitente))
+(logginLights 'en-verde 'en-verde-intermitente)
 ;Tiempo 1781220439: la luz ah cambiado de color EN-VERDE a EN-VERDE-INTERMITENTE
 
-(print(logginLights 'en-verde-intermitente 'en-amarillo))
+(logginLights 'en-verde-intermitente 'en-amarillo)
 ;Tiempo 1781220476: la luz ah cambiado de color EN-VERDE-INTERMITENTE a EN-AMARILLO
 
-(print(logginLights 'en-amarillo 'en-amarillo-intermitente))
+(logginLights 'en-amarillo 'en-amarillo-intermitente)
 ;Tiempo 1781220500: la luz ah cambiado de color EN-AMARILLO a EN-AMARILLO-INTERMITENTE
 
-(print(logginLights 'en-amarillo-intermitente 'en-rojo))
+(logginLights 'en-amarillo-intermitente 'en-rojo)
 ;Tiempo 1781220532: la luz ah cambiado de color EN-AMARILLO-INTERMITENTE a EN-ROJO
 
 #|-------------------------------------------------------------------------------------------------------------------
@@ -181,19 +181,19 @@ IMPACTO: No destrutiva
 )
 
 (calcularRestoIni 5555) ;caso imposible con error
-NIL
+;NIL
 	  
 (calcularRestoIni 210)
-(0 0 0 0 2 3)
+;(0 0 0 0 2 3)
 
 (calcularRestoIni 1)
-(85 3 117 3 3 3)
+;(85 3 117 3 3 3)
 
 (calcularRestoIni 0) ;otro caso imposible, se verifica en su llamada si fuera 0
-(86 3 117 3 3 3)
+;(86 3 117 3 3 3)
 	  
 (calcularRestoIni 9)
-(77 3 117 3 3 3)
+;(77 3 117 3 3 3)
 	  
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCION AUXILIAR: CalcularRestoFin
@@ -215,22 +215,22 @@ IMPACTO: No destrutiva
 )
 
 (calcularRestoFin 5555) ;mismo caso imposible
-NIL
+;NIL
 
 (calcularRestoFin 203)
-(87 3 113 0 0 0)
+;(87 3 113 0 0 0)
 
 (calcularRestoFin 89)
-(87 2 0 0 0 0)
+;(87 2 0 0 0 0)
 
 (calcularRestoFin 87)
-(87 0 0 0 0 0)
+;(87 0 0 0 0 0)
 	  
 (calcularRestoFin 120)
-(87 3 30 0 0 0)
+;(87 3 30 0 0 0)
 
 (calcularRestoFin 0) ;caso imposible
-(0 0 0 0 0 0)
+;(0 0 0 0 0 0)
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCION AUXILIAR: calcularPorcentajes
 NATURALEZA: Pura (devuelve una lista con los porcentajes de cada estado del semáforo)
@@ -271,7 +271,7 @@ IMPACTO: no destructiva
 ;lo cambiamos a nth ya que utilizar car/cdr duplicaba o utilizaba algunos valores erroneos
 
 (print (distribuciontemp 3600))
-| 40.666668% rojo| 1.3333334% rojo-intermitente| 53.72222% verde | 1.4166666% verde-intermitente| 1.4166666% amarillo| 1.4166666% amarillo-intermitente|
+;| 40.666668% rojo| 1.3333334% rojo-intermitente| 53.72222% verde | 1.4166666% verde-intermitente| 1.4166666% amarillo| 1.4166666% amarillo-intermitente|
 
 ;Extension 2, sistema de datos
 
@@ -288,8 +288,10 @@ IMPACTO: Destructiva
    (format stream "=========================================~%")
    (logginLights color-actual cambio-color)
 (format stream "~A: transicion: ~A --> ~A"
-(local-time :format-timestring nil (local-time:now):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
+(local-time:format-timestring nil (local-time:now):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
 (car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color)) )
 (format stream "~% --- Fin del Informe ---") ) )
 ;pasandole loggin para ver en pantalla y luego la impresion dentro del archvio
+
+(informe 'en-verde 'cambiar-a-amarillo)
 
