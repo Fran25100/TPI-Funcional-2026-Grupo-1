@@ -327,6 +327,13 @@ defun calcularPorcentajes (ListaIni ListaFin)
 
 ;Extension 2, sistema de datos
 
+#|-------------------------------------------------------------------------------------------------------------------
+FUNCION: informe
+NATURALEZA: impura (escribe en pantalla y en un archivo)
+ESTRATEGIA: Secuencial
+IMPACTO: Destructiva
+-------------------------------------------------------------------------------------------------------------------|#
+#|
 (defun informe (datos)
  (with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output)
    (format stream "Informe de Ejecución del Sistema Semafórico~%")
@@ -341,6 +348,15 @@ defun calcularPorcentajes (ListaIni ListaFin)
 (informe (list (logginLights 'en-rojo 'en-rojo-intermitente) (logginLights 'en-rojo-intermitente 'en-verde)
  (logginLights 'en-verde 'en-verde-intermitente) (logginLights 'en-verde-intermitente 'en-amarillo)
 (logginLights 'en-amarillo 'en-amarillo-intermitente) (logginLights 'en-amarillo-intermitente 'en-rojo)
- ))
+ ))|#
+(defun informe (color-actual cambio-color)
+ (with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output)
+   (format stream "Informe de Ejecución del Sistema Semafórico~%")
+   (format stream "=========================================~%")
+   (logginLights color-actual cambio-color)
+(format stream "~A: transicion: ~A --> ~A"
+(local-time :format-timestring nil (local-time:now):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
+(car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color)) )
+(format stream "~% --- Fin del Informe ---") ) )
 
 
