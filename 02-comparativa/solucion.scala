@@ -10,19 +10,11 @@ def transicion(colorActual: String, colorACambiar: String): List[String] = { // 
     case _ => List(colorActual, "accion-por-defecto")
   }
 }
-//no esta terminado todavia no devuelve de manera exacta(no devuelve una lista)
-
-//caso probado
-//rojo rojoIntermitente cambia a verde
-transicion("rojo", "verde")
-
-
 
 /*casos probados
 transicion("rojo", "amarillo")
 List(rojo, accion-por-defeto)
 
 transicion("rojo", "verde")
-List(rojo, rojo,intermitente color-a-,verde )
-
+List(rojo, color-a-verde )
 */
