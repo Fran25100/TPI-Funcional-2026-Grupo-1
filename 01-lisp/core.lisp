@@ -4,6 +4,8 @@ NATURALEZA: Pura
 ESTRATEGIA: estructura condicional (implementada con COND)
 IMPACTO: No destructiva
 -------------------------------------------------------------------------------------------------------------------|#
+(load "C:/Users/Fabri/quicklisp/setup.lisp")
+(ql:quickload "local-time")
 
 (defun transicion (color-actual cambiar-a)
     (cond
