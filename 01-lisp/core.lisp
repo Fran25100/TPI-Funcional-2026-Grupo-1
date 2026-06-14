@@ -83,22 +83,22 @@ Impacto En Memoria: No Destructiva, no realiza cambios
 			(car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color))
 ) )
 
-(logginLights 'en-rojo 'en-rojo-intermitente)
+(print(logginLights 'en-rojo 'en-rojo-intermitente))
 ;Tiempo 1781220382: la luz ah cambiado de color EN-ROJO a EN-ROJO-INTERMITENTE
 
-(logginLights 'en-rojo-intermitente 'en-verde)
+(print(print(logginLights 'en-rojo-intermitente 'en-verde))
 ;Tiempo 1781220197: la luz ah cambiado de color EN-ROJO-INTERMITENTE a EN-VERDE
 
-(logginLights 'en-verde 'en-verde-intermitente)
+(print(logginLights 'en-verde 'en-verde-intermitente))
 ;Tiempo 1781220439: la luz ah cambiado de color EN-VERDE a EN-VERDE-INTERMITENTE
 
-(logginLights 'en-verde-intermitente 'en-amarillo)
+(print(logginLights 'en-verde-intermitente 'en-amarillo))
 ;Tiempo 1781220476: la luz ah cambiado de color EN-VERDE-INTERMITENTE a EN-AMARILLO
 
-(logginLights 'en-amarillo 'en-amarillo-intermitente)
+(print(logginLights 'en-amarillo 'en-amarillo-intermitente))
 ;Tiempo 1781220500: la luz ah cambiado de color EN-AMARILLO a EN-AMARILLO-INTERMITENTE
 
-(logginLights 'en-amarillo-intermitente 'en-rojo)
+(print(logginLights 'en-amarillo-intermitente 'en-rojo))
 ;Tiempo 1781220532: la luz ah cambiado de color EN-AMARILLO-INTERMITENTE a EN-ROJO
 
 #|-------------------------------------------------------------------------------------------------------------------
@@ -169,7 +169,7 @@ ESTRATEGIA: alternativa Multiple (cond)
 IMPACTO: No destrutiva
 -------------------------------------------------------------------------------------------------------------------|#
 
-#|(defun calcularRestoIni (restoIni)
+(defun calcularRestoIni (restoIni)
 	(cond 
         ((<= 0 restoIni 86) (list (- 86 restoIni) 3 117 3 3 3)) ;(- 86 restoIni) --> indica lo consumido por rojo
         ((<= 87 restoIni 90) (list 0 (- 90 restoIni) 117 3 3 3)) ;(- 90 restoIni) --> indica lo consumido por el rojo-intermitente
@@ -178,14 +178,23 @@ IMPACTO: No destrutiva
 		((<= 209 restoIni 212) (list 0 0 0 0 (- 212 restoIni) 3)) ;(- 212 restoIni) --> indica lo consumido por amarillo
         ((<= 212 restoIni 215) (list 0 0 0 0 0 (- 215 restoIni))) ;(-215 restoIni) --> indica lo consumido por amarillo-intermitente
     )
-)|#
-(defun calcularRestoIni (restoIni)
-					(cond ((<= 0 restoIni 89) (list (- 90 restoIni) 120 6)) ;(-90 restoIni) --> indica lo consumido por rojo
-					((<= 90 restoIni 209) (list 0 (- 216 restoIni 6) 6)) ;(- 216 restoIni 6) --> indica lo consumido por verde
-					(t (list 0 0 (- 216 restoIni)))
-)
 )
 
+(calcularRestoIni 5555) ;caso imposible con error
+NIL
+	  
+(calcularRestoIni 210)
+(0 0 0 0 2 3)
+
+(calcularRestoIni 1)
+(85 3 117 3 3 3)
+
+(calcularRestoIni 0) ;otro caso imposible, se verifica en su llamada si fuera 0
+(86 3 117 3 3 3)
+	  
+(calcularRestoIni 9)
+(77 3 117 3 3 3)
+	  
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCION AUXILIAR: CalcularRestoFin
 NATURALEZA: pura (dependiendo del resto que recibe, retorna un resultado)
@@ -193,7 +202,7 @@ ESTRATEGIA: alternativa Multiple (cond)
 IMPACTO: No destrutiva
 -------------------------------------------------------------------------------------------------------------------|#
 
-#|(defun calcularRestoFin (restoFin)
+(defun calcularRestoFin (restoFin)
 	(cond  
         ;; Al final de la hora es al revés: calculamos cuánto se consumió desde el inicio de ese último ciclo incompleto hasta llegar al segundo 'restoFin'
         ((<= 0 restoFin 86) (list restoFin 0 0 0 0 0)) ;(- 86 restoFin) --> indica lo consumido por rojo
@@ -203,15 +212,25 @@ IMPACTO: No destrutiva
 		((<= 210 restoFin 212) (list 87 3 117 3 (-  restoFin  210) 0)) ;(- 210 restoFin) --> indica lo consumido por amarillo
         ((<= 213 restoFin 215) (list 87 3 117 3 3 (-  restoFin  213))) ;(- 213 restoFin) --> indica lo consumido por amarillo-intermitente
     )
-)|#
-(defun calcularRestoFin (restoFin)
-				(cond ((<= 0 restoFin 89) (list restoFin 0 0)) ; restoFin --> indica lo consumido por rojo
-					((<= 90 restoFin 209) (list 90 (- restoFin 89) 0)) ;(- restoFin 89) --> indica lo consumido por verde 0|----R-----|89/90|------V------|209/210|---A---|
-					(t (list 90 120 (- restoFin 209)) ) ; (- restoFin 209) --> indica lo consumido por amarillo
-)
 )
 
+(calcularRestoFin 5555) ;mismo caso imposible
+NIL
 
+(calcularRestoFin 203)
+(87 3 113 0 0 0)
+
+(calcularRestoFin 89)
+(87 2 0 0 0 0)
+
+(calcularRestoFin 87)
+(87 0 0 0 0 0)
+	  
+(calcularRestoFin 120)
+(87 3 30 0 0 0)
+
+(calcularRestoFin 0) ;caso imposible
+(0 0 0 0 0 0)
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCION AUXILIAR: calcularPorcentajes
 NATURALEZA: Pura (devuelve una lista con los porcentajes de cada estado del semáforo)
@@ -219,8 +238,7 @@ ESTRATEGIA: Secuencial (implementamos mediante operaciones aritméticas y la con
 IMPACTO: No destructiva
 -------------------------------------------------------------------------------------------------------------------|#
 
-#|
-defun calcularPorcentajes (ListaIni ListaFin)
+(defun calcularPorcentajes (ListaIni ListaFin)
 	(list 
         (float (/ (* (+ 1392 (nth 0 ListaFin) (nth 0 ListaIni)) 100) 3600)) ;rojo
 	    (float (/ (* (+ 48 (nth 1 ListaFin) (nth 1 ListaIni)) 100) 3600)) ;rojo-intermitente
@@ -231,85 +249,12 @@ defun calcularPorcentajes (ListaIni ListaFin)
     )
 )
 
-)|#
-(defun calcularPorcentajes (ListaIni ListaFin)
-				(list (float(/(*(+ 1440 (car ListaFin) (car ListaIni))100) 3600)) ;rojo
-				(float(/(*(+ 1920 (cadr ListaFin) (cadr ListaIni))100)3600)) ;verde
-				(float(/(*(+ 96 (caddr ListaFin) (caddr ListaIni))100)3600)) ;amarillo
-				
-)
-)
-
-
-#| CASO FALLIDO:
-(defun distribucionTemp (unix)
-				(if (zerop (mod unix 216)) "| 55,5% verde| 41,6% rojo | 2,7% amarillo|" ------> el mod nos muestra
-	donde estamos parados, si es = 0 son 16 verdes completos, 16 amarillos y 16,6 rojos. en porcentajes de tiempo serian:
-	55,5% V, 41,6% R y 2,7% A.
-				;((not(zerop (mod unix 216) 0)) 
-				(format t "| ~A% rojo| ~A% amarillo | ~A% verde|"
-						(car (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (mod unix 216)) 216) ) ))
-			;entra al primer elemento (porcentaje del rojo) de la lista, calcularPorcentajes recibe 2 parametros
-				;el 1er, devuelve una lista de los restos CONSUMIDOS al inicio extremo de la hora
-				;el 2do, devuelve una lista con los restos CONSUMIDOS en el extremo final de la hora, el calculo "(mod (- 3600 (mod unix 216)) 216)"
-						;es el resultado de: (- 3600 (mod unix 216) = "tiempo Acotado" que es lo que me queda del tiempo en la 2da hora (sacando el consumido
-						;del resto inicial), y el mod externo nos da el extremo final de esa hora.
-					(cadr (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (mod unix 216)) 216) ) ))
-			;entra al 2do elemento de la lista de los porcentajes (especificamente el amarillo) y hace el mismo proceso anterior
-				(caddr (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (mod unix 216)) 216) ) ))
-			;entra al 3er elemento de la lista de los porcentajes (verde), sigue el mismo proceso
-	)
-)					
-)|#
-				
-;CORRECTO
-#|(defun distribucionTemp (unix)
-				(if (zerop (mod unix 216)) "| 55,5% verde| 41,6% rojo | 2,7% amarillo|" ------> el mod nos muestra
-	donde estamos parados, si es = 0 son 16 verdes completos, 16 amarillos y 16,6 rojos. en porcentajes de tiempo serian:
-	55,5% V, 41,6% R y 2,7% A.
-				
-				;((not(zerop (mod unix 216) 0)) 
-				(format t "| ~A% rojo| ~A% amarillo | ~A% verde|"
-						(car (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216(mod unix 216))) 216) ) ))
-						;entra al primer elemento (porcentaje del rojo) de la lista, calcularPorcentajes recibe 2 parametros
-				;el 1er, devuelve una lista de los restos CONSUMIDOS al inicio extremo de la hora
-				;el 2do, devuelve una lista con los restos CONSUMIDOS en el extremo final de la hora, el calculo "(mod (- 3600 (- 216(mod unix 216))) 216)"
-						;es el resultado de: (- 3600 (- 216(mod unix 216))) = "tiempo Acotado" que es lo que me queda del tiempo en la 2da hora (sacando el consumido
-						;del resto inicial), y el mod externo nos da el extremo final de esa hora.
-					(cadr (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216(mod unix 216))) 216) ) ))
-					;entra al 2do elemento de la lista de los porcentajes (especificamente el amarillo) y hace el mismo proceso anterior
-				(caddr (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216(mod unix 216))) 216) ) ))
-				;entra al 3er elemento de la lista de los porcentajes (verde), sigue el mismo proceso
-	)
-)					
-)|#
-(defun distribucionTemp (unix)
-				(if (zerop (mod unix 216)) "| 41,6% rojo | 55,5% verde | 2,7% amarillo|" #|------> el mod nos muestra
-	donde estamos parados, si es = 0 son 16 verdes completos, 16 amarillos y 16,6 rojos. en porcentajes de tiempo serian:
-	55,5% V, 41,6% R y 2,7% A.|#
-				
-				;((not(zerop (mod unix 216) 0)) 
-				(format t "| ~A% rojo| ~A% verde | ~A% amarillo|"
-						(car (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216(mod unix 216))) 216) ) ))
-					(cadr (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216(mod unix 216))) 216) ) ))
-				(caddr (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216(mod unix 216))) 216) ) ))
-	)
-)					
-)
-;--------------------------------------------------------------------------------------------------------------------------------------
-#|(defun distribucionTemp (unix)
-	(if (zerop (mod unix 216)) "| 40,28% rojo| 1,39% rojo-intermitente | 54,17% verde| 1,39% verde-intermitente| 1,39% amarillo| 1,39% amarillo intermitente|"
-	    (format t "~%| ~A% rojo| ~A% rojo-intermitente| ~A% verde | ~A% verde-intermitente| ~A% amarillo| ~A% amarillo-intermitente|"
-	    (car (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216 (mod unix 216))) 216))))
-		(cadr (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216 (mod unix 216))) 216))))
-	    (caddr (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216 (mod unix 216))) 216))))
-        (cadddr (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216 (mod unix 216))) 216))))
-        (cadddr (cdr (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216 (mod unix 216))) 216)))))
-        (car (last (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216 (mod unix 216))) 216))))))
-    )					
-)|#
-
-(print (distribuciontemp 3600))
+#|-------------------------------------------------------------------------------------------------------------------
+FUNCION: informe
+NATURALEZA: impura (escribe en pantalla y en un archivo)
+ESTRATEGIA: secuencial, condicional doble (implementada con if, format y nth)
+IMPACTO: no destructiva
+-------------------------------------------------------------------------------------------------------------------|#
 
 ;actualizado
 (defun distribucionTemp (unix)
@@ -325,6 +270,9 @@ defun calcularPorcentajes (ListaIni ListaFin)
 )
 ;lo cambiamos a nth ya que utilizar car/cdr duplicaba o utilizaba algunos valores erroneos
 
+(print (distribuciontemp 3600))
+| 40.666668% rojo| 1.3333334% rojo-intermitente| 53.72222% verde | 1.4166666% verde-intermitente| 1.4166666% amarillo| 1.4166666% amarillo-intermitente|
+
 ;Extension 2, sistema de datos
 
 #|-------------------------------------------------------------------------------------------------------------------
@@ -333,22 +281,7 @@ NATURALEZA: impura (escribe en pantalla y en un archivo)
 ESTRATEGIA: Secuencial
 IMPACTO: Destructiva
 -------------------------------------------------------------------------------------------------------------------|#
-#|
-(defun informe (datos)
- (with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output)
-   (format stream "Informe de Ejecución del Sistema Semafórico~%")
-   (format stream "=========================================~%")
-
-   (mapcar #'(lambda (x) (format stream "~A~%" x)) datos)
-
-   (format stream "~% --- Fin del Informe ---")
-   )
- )
-
-(informe (list (logginLights 'en-rojo 'en-rojo-intermitente) (logginLights 'en-rojo-intermitente 'en-verde)
- (logginLights 'en-verde 'en-verde-intermitente) (logginLights 'en-verde-intermitente 'en-amarillo)
-(logginLights 'en-amarillo 'en-amarillo-intermitente) (logginLights 'en-amarillo-intermitente 'en-rojo)
- ))|#
+;actualizado
 (defun informe (color-actual cambio-color)
  (with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output)
    (format stream "Informe de Ejecución del Sistema Semafórico~%")
@@ -358,5 +291,5 @@ IMPACTO: Destructiva
 (local-time :format-timestring nil (local-time:now):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
 (car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color)) )
 (format stream "~% --- Fin del Informe ---") ) )
-
+;pasandole loggin para ver en pantalla y luego la impresion dentro del archvio
 
