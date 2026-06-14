@@ -154,7 +154,7 @@ IMPACTO: No destructiva
 ;4
 
 ;otro caso
-(print(ciclos-por-timepo 70))
+(print(ciclos-por-tiempo 70))
 ;18
 
 #|-------------------------------------------------------------------------------------------------------------------   
@@ -255,7 +255,7 @@ IMPACTO: No destructiva
 				
 ;CORRECTO
 #|(defun distribucionTemp (unix)
-				(if (zerop (mod unix 216)) "| 55,5% verde| 41,6% rojo | 2,7% amarillo|" #|------> el mod nos muestra
+				(if (zerop (mod unix 216)) "| 55,5% verde| 41,6% rojo | 2,7% amarillo|" ------> el mod nos muestra
 	donde estamos parados, si es = 0 son 16 verdes completos, 16 amarillos y 16,6 rojos. en porcentajes de tiempo serian:
 	55,5% V, 41,6% R y 2,7% A.
 				
@@ -304,10 +304,6 @@ IMPACTO: No destructiva
 
 
 ;Extension 2, sistema de datos
-(informe (list (logginLights 'en-rojo 'en-rojo-intermitente) (logginLights 'en-rojo-intermitente 'en-verde)
- (logginLights 'en-verde 'en-verde-intermitente) (logginLights 'en-verde-intermitente 'en-amarillo)
-(logginLights 'en-amarillo 'en-amarillo-intermitente) (logginLights 'en-amarillo-intermitente 'en-rojo)
- ))
 
 (defun informe (datos)
  (with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output)
@@ -319,5 +315,10 @@ IMPACTO: No destructiva
    (format stream "~% --- Fin del Informe ---")
    )
  )
+
+(informe (list (logginLights 'en-rojo 'en-rojo-intermitente) (logginLights 'en-rojo-intermitente 'en-verde)
+ (logginLights 'en-verde 'en-verde-intermitente) (logginLights 'en-verde-intermitente 'en-amarillo)
+(logginLights 'en-amarillo 'en-amarillo-intermitente) (logginLights 'en-amarillo-intermitente 'en-rojo)
+ ))
 
 
