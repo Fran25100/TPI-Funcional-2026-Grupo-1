@@ -195,12 +195,13 @@ IMPACTO: No destrutiva
 
 #|(defun calcularRestoFin (restoFin)
 	(cond  
-        ((<= 0 restoFin 89) (list (- 89 restoFin) 3 117 3 3 3)) ;(- 86 restoFin) --> indica lo consumido por rojo
-        ((<= 87 restoFin 90) (list 0 (- 90 restoFin) 117 3 3 3)) ;(- 90 restoFin) --> indica lo consumido por el rojo-intermitente
-		((<= 91 restoFin 206) (list 0 0 (- 206 restoFin) 3 3 3)) ;(- 206 restoFin) --> indica lo consumido por verde
-        ((<= 207 restoFin 209) (list 0 0 0 (- 209 restoFin) 3 3)) ;(- 209 restoFin) --> indica lo consumido por verde-intermitente
-		((<= 209 restoFin 212) (list 0 0 0 0 (- 212 restoFin) 3)) ;(- 212 restoFin) --> indica lo consumido por amarillo
-        ((<= 212 restoFin 215) (list 0 0 0 0 0 (- 215 restoFin))) ;(- 215 restoFin) --> indica lo consumido por amarillo-intermitente
+        ;; Al final de la hora es al revés: calculamos cuánto se consumió desde el inicio de ese último ciclo incompleto hasta llegar al segundo 'restoFin'
+        ((<= 0 restoFin 86) (list restoFin 0 0 0 0 0)) ;(- 86 restoFin) --> indica lo consumido por rojo
+        ((<= 87 restoFin 89) (list 87 (-  restoFin  87) 0 0 0 0)) ;(- 87 restoFin) --> indica lo consumido por el rojo-intermitente
+		((<= 90 restoFin 206) (list 87 3 (-  restoFin  90) 0 0 0)) ;(- 90 restoFin) --> indica lo consumido por verde
+        ((<= 207 restoFin 209) (list 87 3 117 (-  restoFin  207) 0 0)) ;(- 207 restoFin) --> indica lo consumido por verde-intermitente
+		((<= 210 restoFin 212) (list 87 3 117 3 (-  restoFin  210) 0)) ;(- 210 restoFin) --> indica lo consumido por amarillo
+        ((<= 213 restoFin 215) (list 87 3 117 3 3 (-  restoFin  213))) ;(- 213 restoFin) --> indica lo consumido por amarillo-intermitente
     )
 )|#
 (defun calcularRestoFin (restoFin)
@@ -218,15 +219,18 @@ ESTRATEGIA: Secuencial (implementamos mediante operaciones aritméticas y la con
 IMPACTO: No destructiva
 -------------------------------------------------------------------------------------------------------------------|#
 
-#|(defun calcularPorcentajes (ListaIni ListaFin)
+#|
+defun calcularPorcentajes (ListaIni ListaFin)
 	(list 
-        (float (/ (* (+ 1440 (car ListaFin) (car ListaIni)) 100) 3600)) ;rojo
-	    (float (/ (* (+ 48 (cadr ListaFin) (cadr ListaIni)) 100) 3600)) ;rojo-intermitente
-	    (float (/ (* (+ 1920 (caddr ListaFin) (caddr ListaIni)) 100)3600)) ;verde
-        (float (/ (* (+ 48 (cadddr ListaFin) (cadddr ListaIni)) 100) 3600)) ;verde-intermitente
-        (float (/ (* (+ 96 (cadddr (cdr ListaFin)) (cadddr (cdr ListaIni))) 100)3600)) ;amarillo
-        (float (/ (* (+ 48 (car (last ListaFin)) (car (last ListaIni))) 100) 3600)) ;amarillo-intermitente
+        (float (/ (* (+ 1392 (nth 0 ListaFin) (nth 0 ListaIni)) 100) 3600)) ;rojo
+	    (float (/ (* (+ 48 (nth 1 ListaFin) (nth 1 ListaIni)) 100) 3600)) ;rojo-intermitente
+	    (float (/ (* (+ 1872 (nth 2 ListaFin) (nth 2 ListaIni)) 100)3600)) ;verde
+        (float (/ (* (+ 48 (nth 3 ListaFin) (nth 3 ListaIni)) 100) 3600)) ;verde-intermitente
+        (float (/ (* (+ 48 (nth 4 ListaFin) (nth 4 ListaIni)) 100)3600)) ;amarillo
+        (float (/ (* (+ 48 (nth 5 ListaFin) (nth 5 ListaIni)) 100) 3600)) ;amarillo-intermitente
     )
+)
+
 )|#
 (defun calcularPorcentajes (ListaIni ListaFin)
 				(list (float(/(*(+ 1440 (car ListaFin) (car ListaIni))100) 3600)) ;rojo
