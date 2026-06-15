@@ -275,7 +275,7 @@ IMPACTO: no destructiva
   (unless (probe-file "informe-ejecucion-semaforo.txt") ;probe-file comprueba si existe el archivo.txt, si existe, da verdadero, sino falso, y un unless es como if,
     ;pero solo ejecuta si la condicion es falsa
     (with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output)
-      (format stream "Informe de Ejecución~%")
+      (format stream "Informe de Ejecución del Sistema Semaforico~%")
       )
     )
   )
