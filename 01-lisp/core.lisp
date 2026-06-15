@@ -244,12 +244,7 @@ IMPACTO: No destructiva
     )
 )
 
-#|-------------------------------------------------------------------------------------------------------------------
-FUNCION: informe
-NATURALEZA: impura (escribe en pantalla y en un archivo)
-ESTRATEGIA: secuencial, condicional doble (implementada con if, format y nth)
-IMPACTO: no destructiva
--------------------------------------------------------------------------------------------------------------------|#
+
 
 ;actualizado
 (defun distribucionTemp (unix)
@@ -271,6 +266,13 @@ IMPACTO: no destructiva
 ;Extension 2, sistema de datos
 
 ;Actualizado
+
+#|-------------------------------------------------------------------------------------------------------------------
+FUNCION: crear-informe
+NATURALEZA: inpura (escribe en el archivo)
+ESTRATEGIA: Utiliza una estructura condicional
+IMPACTO: no destructiva
+-------------------------------------------------------------------------------------------------------------------|#
 (defun crear-informe ()
   (unless (probe-file "informe-ejecucion-semaforo.txt") ;probe-file comprueba si existe el archivo.txt, si existe, da verdadero, sino falso, y un unless es como if,
     ;pero solo ejecuta si la condicion es falsa
@@ -303,7 +305,4 @@ IMPACTO: no destructiva
 (informe 'en-verde 'cambiar-a-amarillo)
 (informe 'en-verde 'cambiar-a-rojo)
 (informe 'en-amarillo 'cambiar-a-rojo)
-
-
-
 
