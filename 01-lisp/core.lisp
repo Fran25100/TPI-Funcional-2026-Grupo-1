@@ -109,7 +109,7 @@ IMPACTO: No destructiva
 -------------------------------------------------------------------------------------------------------------------|#
 ; requerimiento 4.a 
 
-(defun duracion-ciclo (rojo verde amarillo intermitente )
+(defun duracion-ciclo (rojo verde amarillo)
     (+ rojo verde amarillo)
 )
 
