@@ -276,7 +276,7 @@ IMPACTO: no destructiva
     ;pero solo ejecuta si la condicion es falsa
     (with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output)
       (format stream "Informe de Ejecución~%")
-      (format stream "=============================================~%") )
+      )
     )
   )
 
