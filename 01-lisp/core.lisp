@@ -83,7 +83,7 @@ Impacto En Memoria: No Destructiva, no realiza cambios
 			(car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color))
 ) )
 
-TRANSICION
+;TRANSICION
 (logginLights 'en-verde 'cambiar-a-amarillo)
 ;Tiempo 2026-06-15 17:47: la luz ah cambiado de color EN-VERDE a CAMBIAR-A-AMARILLO
 ;NIL
@@ -292,5 +292,4 @@ IMPACTO: no destructiva
 (informe 'en-verde 'cambiar-a-rojo)
 (informe 'en-amarillo 'cambiar-a-rojo)
 
-(informe 'en-verde 'cambiar-a-amarillo)
 
