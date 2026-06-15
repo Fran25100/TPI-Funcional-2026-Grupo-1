@@ -294,6 +294,7 @@ IMPACTO: no destructiva
    (format stream "~A: transicion: ~A --> ~A"
    (local-time:format-timestring stream (local-time:now) :format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
    (car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color)) )
+   (format stream "~% --- Fin del Informe ---~% ")
    )
    (logginLights color-actual cambio-color)
 )
@@ -302,4 +303,7 @@ IMPACTO: no destructiva
 (informe 'en-verde 'cambiar-a-amarillo)
 (informe 'en-verde 'cambiar-a-rojo)
 (informe 'en-amarillo 'cambiar-a-rojo)
+
+
+
 
