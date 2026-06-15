@@ -85,16 +85,16 @@ Impacto En Memoria: No Destructiva, no realiza cambios
 
 TRANSICION
 (logginLights 'en-verde 'cambiar-a-amarillo)
-Tiempo 2026-06-15 17:47: la luz ah cambiado de color EN-VERDE a CAMBIAR-A-AMARILLO
-NIL
+;Tiempo 2026-06-15 17:47: la luz ah cambiado de color EN-VERDE a CAMBIAR-A-AMARILLO
+;NIL
 
 (logginLights 'en-verde 'cambiar-a-rojo)
-Tiempo 2026-06-15 17:47: la luz ah cambiado de color EN-VERDE a NIL ;caso de error
-NIL
+;Tiempo 2026-06-15 17:47: la luz ah cambiado de color EN-VERDE a NIL ;caso de error
+;NIL
 
 (logginLights 'en-rojo 'cambiar-a-verde)
-Tiempo 2026-06-15 17:48: la luz ah cambiado de color EN-ROJO a CAMBIAR-A-VERDE
-NIL
+;Tiempo 2026-06-15 17:48: la luz ah cambiado de color EN-ROJO a CAMBIAR-A-VERDE
+;NIL
 
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCIÓN: duracion-ciclo
@@ -287,6 +287,10 @@ IMPACTO: no destructiva
 (car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color)) )
 (format stream "~% --- Fin del Informe ---") ) )
 ;pasandole loggin para ver en pantalla y luego la impresion dentro del archvio
+
+(informe 'en-verde 'cambiar-a-amarillo)
+(informe 'en-verde 'cambiar-a-rojo)
+(informe 'en-amarillo 'cambiar-a-rojo)
 
 (informe 'en-verde 'cambiar-a-amarillo)
 
