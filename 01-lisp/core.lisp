@@ -270,13 +270,23 @@ IMPACTO: no destructiva
 
 ;Extension 2, sistema de datos
 
+;Actualizado
+(defun crear-informe ()
+  (unless (probe-file "informe-ejecucion-semaforo.txt") ;probe-file comprueba si existe el archivo.txt, si existe, da verdadero, sino falso, y un unless es como if,
+    ;pero solo ejecuta si la condicion es falsa
+    (with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output)
+      (format stream "Informe de Ejecución~%")
+      (format stream "=============================================~%") )
+    )
+  )
+
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCION: informe
 NATURALEZA: impura (escribe en pantalla y en un archivo)
 ESTRATEGIA: Secuencial
 IMPACTO: no destructiva
 -------------------------------------------------------------------------------------------------------------------|#
-;actualizado
+
 (defun informe (color-actual cambio-color)
 (crear-informe)
  (with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output :if-exists :append :if-does-not-exist :create)
@@ -288,16 +298,6 @@ IMPACTO: no destructiva
    (logginLights color-actual cambio-color)
 )
 ;pasandole loggin para ver en pantalla y luego la impresion dentro del archvio
-
-(defun crear-informe ()
-  (unless (probe-file "informe-ejecucion-semaforo.txt") ;probe-file comprueba si existe el archivo.txt, si existe, da verdadero, sino falso, y un unless es como if,
-    ;pero solo ejecuta si la condicion es falsa
-    (with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output)
-      (format stream "Informe de Ejecución~%")
-      (format stream "=============================================~%") )
-    )
-  )
-
 
 (informe 'en-verde 'cambiar-a-amarillo)
 (informe 'en-verde 'cambiar-a-rojo)
