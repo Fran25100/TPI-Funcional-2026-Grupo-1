@@ -12,24 +12,24 @@ def transicion(colorActual: String, colorACambiar: String): List[String] = { // 
   }
 }
 
-/*casos probados
+/* casos probados */
 transicion("en-rojo", "amarillo")
-List(en-rojo, accion-por-defeto)
+//List(en-rojo, accion-por-defeto)
 
 transicion("en-rojo", "verde")
-List(en-rojo, cambiar-a-verde )
+//List(en-rojo, cambiar-a-verde )
 
 transicion("en-verde", "amarillo")
-List(en-verde, cambiar-a-amarillo)
+//List(en-verde, cambiar-a-amarillo)
 
 transicion("amarillo", "rojo")
-List(en-amarillo, cambiar-a-rojo)
-*/
+//List(en-amarillo, cambiar-a-rojo)
+
 
 /*funcion timer*/
 def timer(timestap: Float): String = {//funcion timer que recibe el parametro timestap
-  (timestap % 215.0f) match {//declaro el match con el parametro timestap
-    // Aplicamos el módulo 216.0f para limpiar los ciclos completos, siempre va a valer entre 0 y 215(como si fuera de 1-216).
+  (timestap % 216.0f) match {//declaro el match con el parametro timestap
+    // Aplicamos el módulo 216.0f para limpiar los ciclos completos, siempre va a valer entre 0 y 215.
     case time if time >= 0.0f && time <= 86f.0 => "en-rojo"
     // caso 1. => comparamos si esta dentro del rango para ser rojo
     case time if time >= 86.0f && time <= 89.0f => "en-rojo-intermitente"
@@ -44,65 +44,65 @@ def timer(timestap: Float): String = {//funcion timer que recibe el parametro ti
     // caso 6. => comparamos si esta dentro del rango para ser amarillo-intermitente
   }
 }
-/*
-//casos probados
+
+/*casos probados
 timer(1000)
-en-verde
+//en-verde
 
 timer(0)
-en-rojo
+//en-rojo
 
 timer(27)
-en-rojo
+//en-rojo
 
 timer(86)
-en-rojo
+//en-rojo
 
 timer(87)
-en-rojo-intermitente
+//en-rojo-intermitente
 
 timer(88)
-en-rojo-intermitente
+//en-rojo-intermitente
 
 timer(89)
-en-rojo-intermitente
+//en-rojo-intermitente
 
 timer(90)
-en-verde
+//en-verde
 
 timer(170)
-en-verde
+//en-verde
 
 timer(206)
-en-verde
+//en-verde
 
 timer(207)
-en-verde-intermitente
+//en-verde-intermitente
 
 timer(208)
-en-verde-intermitente
+//en-verde-intermitente
 
 timer(209)
-en-verde-intermitente
+//en-verde-intermitente
 
 timer(210)
-en-amarillo
+//en-amarillo
 
 timer(211)
-en-amarillo
+//en-amarillo
 
 timer(212)
-en-amarillo
+//en-amarillo
 
 timer(213)
-en-amarillo-intermitente
+//en-amarillo-intermitente
 
 timer(214)
-en-amarillo-intermitente
+//en-amarillo-intermitente
 
 timer(215)
-en-amarillo-intermitente
+//en-amarillo-intermitente
 
 timer(2000)
-en-rojo
-*/
+//en-rojo
+
