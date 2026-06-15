@@ -278,15 +278,26 @@ IMPACTO: no destructiva
 -------------------------------------------------------------------------------------------------------------------|#
 ;actualizado
 (defun informe (color-actual cambio-color)
- (with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output)
-   (format stream "Informe de Ejecución del Sistema Semafórico~%")
+(crear-informe)
+ (with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output :if-exists :append :if-does-not-exist :create)
    (format stream "=========================================~%")
+   (format stream "~A: transicion: ~A --> ~A"
+   (local-time:format-timestring stream (local-time:now) :format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
+   (car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color)) )
+   )
    (logginLights color-actual cambio-color)
-(format stream "~A: transicion: ~A --> ~A"
-(local-time:format-timestring stream (local-time:now) :format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
-(car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color)) )
-(format stream "~% --- Fin del Informe ---") ) )
+)
 ;pasandole loggin para ver en pantalla y luego la impresion dentro del archvio
+
+(defun crear-informe ()
+  (unless (probe-file "informe-ejecucion-semaforo.txt") ;probe-file comprueba si existe el archivo.txt, si existe, da verdadero, sino falso, y un unless es como if,
+    ;pero solo ejecuta si la condicion es falsa
+    (with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output)
+      (format stream "Informe de Ejecución~%")
+      (format stream "=============================================~%") )
+    )
+  )
+
 
 (informe 'en-verde 'cambiar-a-amarillo)
 (informe 'en-verde 'cambiar-a-rojo)
