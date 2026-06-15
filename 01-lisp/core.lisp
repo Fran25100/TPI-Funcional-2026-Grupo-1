@@ -110,7 +110,7 @@ IMPACTO: No destructiva
 ; requerimiento 4.a 
 
 (defun duracion-ciclo (rojo verde amarillo intermitente )
-    (+ rojo verde amarillo (* intermitente 3))
+    (+ rojo verde amarillo)
 )
 
 ;ciclo pedido (con iteracion 2 extension 1)
@@ -130,7 +130,7 @@ IMPACTO: No destructiva
 ; requerimiento 4.b
 
 (defun recomendacion-ciclo (duracion)
-    (if (and (>= duracion 35) (<= duracion 150)); preferi no ser tan especifico y cambiarlo a un if
+    (if (and (>= duracion 35) (<= duracion 150))
 		"ciclo optimo"
 		"ciclo no optimo"
     )
