@@ -283,7 +283,7 @@ IMPACTO: no destructiva
    (format stream "=========================================~%")
    (logginLights color-actual cambio-color)
 (format stream "~A: transicion: ~A --> ~A"
-(local-time:format-timestring nil (local-time:now):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
+(local-time:format-timestring stream (local-time:now) :format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
 (car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color)) )
 (format stream "~% --- Fin del Informe ---") ) )
 ;pasandole loggin para ver en pantalla y luego la impresion dentro del archvio
