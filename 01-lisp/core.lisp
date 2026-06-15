@@ -114,12 +114,12 @@ IMPACTO: No destructiva
 )
 
 ;ciclo pedido (con iteracion 2 extension 1)
-(print(duracion-ciclo 87 117 3 3))
+(print(duracion-ciclo 90 120 6))
 ;216
 
 ;otro ciclo
-(print(duracion-ciclo 40 60 5 2))
-;111
+(print(duracion-ciclo 40 60 5))
+;105
 
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCIÓN: recomendacion-ciclo
