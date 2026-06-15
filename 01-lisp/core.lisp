@@ -201,11 +201,11 @@ IMPACTO: No destrutiva
 	(cond  
         ;; Al final de la hora es al revés: calculamos cuánto se consumió desde el inicio de ese último ciclo incompleto hasta llegar al segundo 'restoFin'
         ((<= 0 restoFin 86) (list restoFin 0 0 0 0 0)) ;(- 86 restoFin) --> indica lo consumido por rojo
-        ((<= 87 restoFin 89) (list 87 (-  restoFin  87) 0 0 0 0)) ;(- 87 restoFin) --> indica lo consumido por el rojo-intermitente
-		((<= 90 restoFin 206) (list 87 3 (-  restoFin  90) 0 0 0)) ;(- 90 restoFin) --> indica lo consumido por verde
-        ((<= 207 restoFin 209) (list 87 3 117 (-  restoFin  207) 0 0)) ;(- 207 restoFin) --> indica lo consumido por verde-intermitente
-		((<= 210 restoFin 212) (list 87 3 117 3 (-  restoFin  210) 0)) ;(- 210 restoFin) --> indica lo consumido por amarillo
-        ((<= 213 restoFin 215) (list 87 3 117 3 3 (-  restoFin  213))) ;(- 213 restoFin) --> indica lo consumido por amarillo-intermitente
+        ((<= 87 restoFin 89) (list 87 (-  restoFin  87) 0 0 0 0)) ;(-  restoFin  87) --> indica lo consumido por el rojo-intermitente
+		((<= 90 restoFin 206) (list 87 3 (-  restoFin  90) 0 0 0)) ;(-  restoFin  90) --> indica lo consumido por verde
+        ((<= 207 restoFin 209) (list 87 3 117 (-  restoFin  207) 0 0)) ;(-  restoFin  207) --> indica lo consumido por verde-intermitente
+		((<= 210 restoFin 212) (list 87 3 117 3 (-  restoFin  210) 0)) ;(-  restoFin  210) --> indica lo consumido por amarillo
+        ((<= 213 restoFin 215) (list 87 3 117 3 3 (-  restoFin  213))) ;(-  restoFin  213) --> indica lo consumido por amarillo-intermitente
     )
 )
 
@@ -245,7 +245,12 @@ IMPACTO: No destructiva
 )
 
 
-
+#|-------------------------------------------------------------------------------------------------------------------
+FUNCION: distribucionTemp
+NATURALEZA: impura (escribe en pantalla y en un archivo)
+ESTRATEGIA: secuencial, condicional doble (implementada con if, format y nth)
+IMPACTO: no destructiva
+-------------------------------------------------------------------------------------------------------------------|#
 ;actualizado
 (defun distribucionTemp (unix)
 	(if (zerop (mod unix 216)) "| 40,28% rojo| 1,39% rojo-intermitente | 54,17% verde| 1,39% verde-intermitente| 1,39% amarillo| 1,39% amarillo intermitente|"
