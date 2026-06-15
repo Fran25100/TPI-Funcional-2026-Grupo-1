@@ -136,11 +136,11 @@ IMPACTO: No destructiva
     )
 )
 
-(print (recomendacion-ciclo (duracion-ciclo 90 120 6 3)))
+(print (recomendacion-ciclo (duracion-ciclo 90 120 6 )))
 ;ciclo no optimo
-(print (recomendacion-ciclo (duracion-ciclo 40 60 6 3)))
+(print (recomendacion-ciclo (duracion-ciclo 40 60 6 )))
 ;ciclo optimo
-(print (recomendacion-ciclo (duracion-ciclo 7 12 5 3)))
+(print (recomendacion-ciclo (duracion-ciclo 7 12 5 )))
 ;ciclo no optimo
 
 #|-------------------------------------------------------------------------------------------------------------------
