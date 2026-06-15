@@ -79,27 +79,22 @@ Impacto En Memoria: No Destructiva, no realiza cambios
 
 (defun logginLights (color-actual cambio-color)
     (format t "Tiempo ~A: la luz ah cambiado de color ~A a ~A" 
-		(local-time :format-timestring nil (local-time:now):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
+		(local-time:format-timestring nil (local-time:now) :format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
 			(car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color))
 ) )
 
-(logginLights 'en-rojo 'en-rojo-intermitente)
-;Tiempo 1781220382: la luz ah cambiado de color EN-ROJO a EN-ROJO-INTERMITENTE
+TRANSICION
+(logginLights 'en-verde 'cambiar-a-amarillo)
+Tiempo 2026-06-15 17:47: la luz ah cambiado de color EN-VERDE a CAMBIAR-A-AMARILLO
+NIL
 
-(logginLights 'en-rojo-intermitente 'en-verde)
-;Tiempo 1781220197: la luz ah cambiado de color EN-ROJO-INTERMITENTE a EN-VERDE
+(logginLights 'en-verde 'cambiar-a-rojo)
+Tiempo 2026-06-15 17:47: la luz ah cambiado de color EN-VERDE a NIL ;caso de error
+NIL
 
-(logginLights 'en-verde 'en-verde-intermitente)
-;Tiempo 1781220439: la luz ah cambiado de color EN-VERDE a EN-VERDE-INTERMITENTE
-
-(logginLights 'en-verde-intermitente 'en-amarillo)
-;Tiempo 1781220476: la luz ah cambiado de color EN-VERDE-INTERMITENTE a EN-AMARILLO
-
-(logginLights 'en-amarillo 'en-amarillo-intermitente)
-;Tiempo 1781220500: la luz ah cambiado de color EN-AMARILLO a EN-AMARILLO-INTERMITENTE
-
-(logginLights 'en-amarillo-intermitente 'en-rojo)
-;Tiempo 1781220532: la luz ah cambiado de color EN-AMARILLO-INTERMITENTE a EN-ROJO
+(logginLights 'en-rojo 'cambiar-a-verde)
+Tiempo 2026-06-15 17:48: la luz ah cambiado de color EN-ROJO a CAMBIAR-A-VERDE
+NIL
 
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCIÓN: duracion-ciclo
