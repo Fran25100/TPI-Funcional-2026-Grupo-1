@@ -99,7 +99,7 @@ Impacto En Memoria: No Destructiva, no realiza cambios
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCIÓN: duracion-ciclo
 NATURALEZA: Pura
-ESTRATEGIA: Simple (no recursiva, no predicado, no utiliza funciones de orden superior)
+ESTRATEGIA: secuancial (no recursiva, no predicado, no utiliza funciones de orden superior)
 IMPACTO: No destructiva
 -------------------------------------------------------------------------------------------------------------------|#
 ; requerimiento 4.a 
