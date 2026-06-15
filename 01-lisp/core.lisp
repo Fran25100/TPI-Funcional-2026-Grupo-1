@@ -79,7 +79,7 @@ Impacto En Memoria: No Destructiva, no realiza cambios
 
 (defun logginLights (color-actual cambio-color)
     (format t "Tiempo ~A: la luz ah cambiado de color ~A a ~A" 
-		(local-time:format-timestring nil (local-time:now):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
+		(local-time :format-timestring nil (local-time:now):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
 			(car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color))
 ) )
 
@@ -124,7 +124,7 @@ IMPACTO: No destructiva
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCIÓN: recomendacion-ciclo
 NATURALEZA: Pura
-ESTRATEGIA: alternativa doble (condicional IF)
+ESTRATEGIA: condicional simple (condicional IF)
 IMPACTO: No destructiva
 -------------------------------------------------------------------------------------------------------------------|#
 ; requerimiento 4.b
@@ -279,7 +279,7 @@ IMPACTO: no destructiva
 FUNCION: informe
 NATURALEZA: impura (escribe en pantalla y en un archivo)
 ESTRATEGIA: Secuencial
-IMPACTO: Destructiva
+IMPACTO: no destructiva
 -------------------------------------------------------------------------------------------------------------------|#
 ;actualizado
 (defun informe (color-actual cambio-color)
