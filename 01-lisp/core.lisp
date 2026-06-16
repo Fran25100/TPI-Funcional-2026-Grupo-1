@@ -78,7 +78,7 @@ Impacto En Memoria: No Destructiva, no realiza cambios
 ;desactualizado, restamos al tiempo el cual esta dado desde 1970 unos 70 años para que se sicronicen correctamente. 
 
 (defun logginLights (color-actual cambio-color unixtemp)
-    (format t "Tiempo ~A: la luz ah cambiado de color ~A a ~A~%" 
+    (format t "~% Tiempo ~A: la luz ah cambiado de color ~A a ~A~%" 
 		(local-time:format-timestring nil (local-time:unix-to-timestamp unixtemp) :format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
 			(car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color))
 ) )
