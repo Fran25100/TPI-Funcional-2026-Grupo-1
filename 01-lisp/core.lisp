@@ -171,7 +171,7 @@ IMPACTO: No destrutiva
 		((<= 91 restoIni 206) (list 0 0 (- 206 restoIni) 3 3 3)) ;(- 206 restoIni) --> indica lo consumido por verde
         ((<= 207 restoIni 209) (list 0 0 0 (- 209 restoIni) 3 3)) ;(- 209 restoIni) --> indica lo consumido por verde-intermitente
 		((<= 209 restoIni 212) (list 0 0 0 0 (- 212 restoIni) 3)) ;(- 212 restoIni) --> indica lo consumido por amarillo
-        ((<= 212 restoIni 215) (list 0 0 0 0 0 (- 215 restoIni))) ;(-215 restoIni) --> indica lo consumido por amarillo-intermitente
+        ( t (list 0 0 0 0 0 (- 215 restoIni))) ;(-215 restoIni) --> indica lo consumido por amarillo-intermitente
     )
 )
 
@@ -205,7 +205,7 @@ IMPACTO: No destrutiva
 		((<= 90 restoFin 206) (list 87 3 (-  restoFin  90) 0 0 0)) ;(-  restoFin  90) --> indica lo consumido por verde
         ((<= 207 restoFin 209) (list 87 3 117 (-  restoFin  207) 0 0)) ;(-  restoFin  207) --> indica lo consumido por verde-intermitente
 		((<= 210 restoFin 212) (list 87 3 117 3 (-  restoFin  210) 0)) ;(-  restoFin  210) --> indica lo consumido por amarillo
-        ((<= 213 restoFin 215) (list 87 3 117 3 3 (-  restoFin  213))) ;(-  restoFin  213) --> indica lo consumido por amarillo-intermitente
+        ( t (list 87 3 117 3 3 (-  restoFin  213))) ;(-  restoFin  213) --> indica lo consumido por amarillo-intermitente
     )
 )
 
