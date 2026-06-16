@@ -70,29 +70,29 @@ Impacto En Memoria: No Destructiva, no realiza cambios
 
 #|-------------------------------------------------------------------------------------------------------------------
 Funcion: LogginLights
-Naturaleza: Impura (por FORMAT T y GET-UNIVERSAL-TIME, escribe en pantalla segun los datos de entrada)
-Estrategia: Simple (implementada con FORMAT y GET-UNIVERSAL-TIME)
+Naturaleza: Impura (por FORMAT T escribe en pantalla segun los datos de entrada)
+Estrategia: Simple (implementada con FORMAT )
 Impacto En Memoria: No Destructiva, no realiza cambios
 -------------------------------------------------------------------------------------------------------------------|#
 ;correcion: se automatizo el tiempo para que sea calculado directamente dentro de esta funcion, en vez de un tiempo que puede estar
 ;desactualizado, restamos al tiempo el cual esta dado desde 1970 unos 70 años para que se sicronicen correctamente. 
 
-(defun logginLights (color-actual cambio-color)
-    (format t "Tiempo ~A: la luz ah cambiado de color ~A a ~A" 
-		(local-time:format-timestring nil (local-time:now) :format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
+(defun logginLights (color-actual cambio-color unixtemp)
+    (format t "Tiempo ~A: la luz ah cambiado de color ~A a ~A~%" 
+		(local-time:format-timestring nil (local-time:unix-to-timestamp unixtemp) :format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
 			(car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color))
 ) )
 
 ;TRANSICION
-(logginLights 'en-verde 'cambiar-a-amarillo)
+(logginLights 'en-verde 'cambiar-a-amarillo 1781556420)
 ;Tiempo 2026-06-15 17:47: la luz ah cambiado de color EN-VERDE a CAMBIAR-A-AMARILLO
 ;NIL
 
-(logginLights 'en-verde 'cambiar-a-rojo)
+(logginLights 'en-verde 'cambiar-a-rojo 1781556420)
 ;Tiempo 2026-06-15 17:47: la luz ah cambiado de color EN-VERDE a NIL ;caso de error
 ;NIL
 
-(logginLights 'en-rojo 'cambiar-a-verde)
+(logginLights 'en-rojo 'cambiar-a-verde 1781556480)
 ;Tiempo 2026-06-15 17:48: la luz ah cambiado de color EN-ROJO a CAMBIAR-A-VERDE
 ;NIL
 
@@ -254,7 +254,7 @@ IMPACTO: no destructiva
 ;actualizado
 (defun distribucionTemp (unix)
 	(if (zerop (mod unix 216)) "| 40,28% rojo| 1,39% rojo-intermitente | 54,17% verde| 1,39% verde-intermitente| 1,39% amarillo| 1,39% amarillo intermitente|"
-	    (format t "~%| ~A% rojo| ~A% rojo-intermitente| ~A% verde | ~A% verde-intermitente| ~A% amarillo| ~A% amarillo-intermitente|"
+	    (format nil "~%| ~A% rojo| ~A% rojo-intermitente| ~A% verde | ~A% verde-intermitente| ~A% amarillo| ~A% amarillo-intermitente|"
 	    (nth 0 (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216 (mod unix 216))) 216))))
 		(nth 1 (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216 (mod unix 216))) 216))))
 	    (nth 2 (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216 (mod unix 216))) 216))))
@@ -288,26 +288,39 @@ IMPACTO: no destructiva
   )
 
 #|-------------------------------------------------------------------------------------------------------------------
+FUNCION: cerrar-informe
+NATURALEZA: inpura (escribe en el archivo)
+ESTRATEGIA: finaliza el archivo
+IMPACTO: no destructiva
+-------------------------------------------------------------------------------------------------------------------|#
+(defun cerrar-informe()
+   (with-open-file (stream "informe-ejecucion-semaforo.txt":direction :output :if-exists :append)
+       (format stream "~% --- Fin del Informe ---~%")
+   )
+ )
+
+#|-------------------------------------------------------------------------------------------------------------------
 FUNCION: informe
 NATURALEZA: impura (escribe en pantalla y en un archivo)
 ESTRATEGIA: Secuencial
 IMPACTO: no destructiva
 -------------------------------------------------------------------------------------------------------------------|#
 
-(defun informe (color-actual cambio-color)
+(defun informe (color-actual cambio-color unixtemp)
 (crear-informe)
  (with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output :if-exists :append :if-does-not-exist :create)
    (format stream "~%=========================================~%")
-   (format stream "~A: transicion: ~A --> ~A"
-   (local-time:format-timestring nil (local-time:now) :format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
+   (format stream "~A: transicion: ~A --> ~A~%"
+   (local-time:format-timestring nil (local-time:unix-to-timestamp unixtemp) :format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
    (car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color)) )
-   (format stream "~% --- Fin del Informe ---~% ")
    )
+	;pasandole loggin para ver en pantalla
    (logginLights color-actual cambio-color)
 )
-;pasandole loggin para ver en pantalla y luego la impresion dentro del archvio
 
-(informe 'en-verde 'cambiar-a-amarillo)
-(informe 'en-verde 'cambiar-a-rojo)
+(informe 'en-verde 'cambiar-a-amarillo 1742163000)
+(informe 'en-verde 'cambiar-a-rojo 1718553600)
 (informe 'en-amarillo 'cambiar-a-rojo)
 
+;cierra el informe
+(cerrar-informe)
