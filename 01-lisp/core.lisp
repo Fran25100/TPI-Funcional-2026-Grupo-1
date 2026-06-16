@@ -315,12 +315,12 @@ IMPACTO: no destructiva
    (car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color)) )
    )
 	;pasandole loggin para ver en pantalla
-   (logginLights color-actual cambio-color)
+   (logginLights color-actual cambio-color unixtemp)
 )
 
 (informe 'en-verde 'cambiar-a-amarillo 1742163000)
 (informe 'en-verde 'cambiar-a-rojo 1718553600)
-(informe 'en-amarillo 'cambiar-a-rojo)
+(informe 'en-amarillo 'cambiar-a-rojo 1781556480)
 
 ;cierra el informe
 (cerrar-informe)
