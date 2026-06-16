@@ -36,7 +36,7 @@ Código del Lenguaje Asignado (Fase 3):
 
 
 Redacción del Informe y Respuestas Teóricas:
-   - [ ] Autoría Propia: Las explicaciones de los conceptos de los lenguajes y el análisis comparativo reflejan nuestras propias conclusiones conceptuales.
+   - [x] Autoría Propia: Las explicaciones de los conceptos de los lenguajes y el análisis comparativo reflejan nuestras propias conclusiones conceptuales.
    - [ ] Redacción Asistida / Generada: La IA redactó o fundamentó las respuestas teóricas basadas en prompts conceptuales proporcionados por el grupo.
    - [ ] Generación completa por IA
 
