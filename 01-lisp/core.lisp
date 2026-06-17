@@ -78,22 +78,22 @@ Impacto En Memoria: No Destructiva, no realiza cambios
 ;desactualizado, restamos al tiempo el cual esta dado desde 1970 unos 70 años para que se sicronicen correctamente. 
 
 (defun logginLights (color-actual cambio-color unixtemp)
-    (format t "~% Tiempo ~A: la luz ah cambiado de color ~A a ~A~%" 
-		(local-time:format-timestring nil (local-time:unix-to-timestamp unixtemp) :format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
+    (format t "~% Tiempo ~A la luz ah cambiado de color ~A a ~A~%" 
+		(local-time:format-timestring nil (local-time:unix-to-timestamp unixtemp) :format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2) ":" (:sec 2)))
 			(car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color))
 ) )
 
 ;TRANSICION
-(logginLights 'en-verde 'cambiar-a-amarillo 1781556420)
-;Tiempo 2026-06-15 17:47: la luz ah cambiado de color EN-VERDE a CAMBIAR-A-AMARILLO
+(logginLights 'en-verde 'cambiar-a-amarillo 1781556453)
+;Tiempo 2026-06-15 17:47:33 la luz ah cambiado de color EN-VERDE a CAMBIAR-A-AMARILLO
 ;NIL
 
-(logginLights 'en-verde 'cambiar-a-rojo 1781556420)
-;Tiempo 2026-06-15 17:47: la luz ah cambiado de color EN-VERDE a NIL ;caso de error
+(logginLights 'en-verde 'cambiar-a-rojo 1781556453)
+;Tiempo 2026-06-15 17:47:33 la luz ah cambiado de color EN-VERDE a NIL ;caso de error
 ;NIL
 
-(logginLights 'en-rojo 'cambiar-a-verde 1781556480)
-;Tiempo 2026-06-15 17:48: la luz ah cambiado de color EN-ROJO a CAMBIAR-A-VERDE
+(logginLights 'en-rojo 'cambiar-a-verde 1781556492)
+;Tiempo 2026-06-15 17:48:12 la luz ah cambiado de color EN-ROJO a CAMBIAR-A-VERDE
 ;NIL
 
 #|-------------------------------------------------------------------------------------------------------------------
@@ -310,8 +310,8 @@ IMPACTO: no destructiva
 (crear-informe)
  (with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output :if-exists :append :if-does-not-exist :create)
    (format stream "~%=========================================~%")
-   (format stream "~A: transicion: ~A --> ~A~%"
-   (local-time:format-timestring nil (local-time:unix-to-timestamp unixtemp) :format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
+   (format stream "~A transicion: ~A --> ~A~%"
+   (local-time:format-timestring nil (local-time:unix-to-timestamp unixtemp) :format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2) ":" (:sec 2)))
    (car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color)) )
    )
 	;pasandole loggin para ver en pantalla
@@ -319,8 +319,8 @@ IMPACTO: no destructiva
 )
 
 (informe 'en-verde 'cambiar-a-amarillo 1742163000)
-(informe 'en-verde 'cambiar-a-rojo 1718553600)
-(informe 'en-amarillo 'cambiar-a-rojo 1781556480)
-
+(informe 'en-verde 'cambiar-a-rojo 1742163000)
+(informe 'en-amarillo 'cambiar-a-rojo 1718484493)
+                                   
 ;cierra el informe
 (cerrar-informe)
