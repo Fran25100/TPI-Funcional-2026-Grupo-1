@@ -25,11 +25,11 @@ IMPACTO: No destructiva
 (transicion 'en-verde-intermitente 'cambiar-a-rojo)
 (EN-VERDE-INTERMITENTE ACCION-POR-DEFECTO)
 
-(transicion 'en-verde- 'cambiar-a-amarillo)
-(EN-VERDE- ACCION-POR-DEFECTO)
+(transicion 'en-verde 'cambiar-a-amarillo)
+(EN-VERDE ACCION-POR-DEFECTO)
 
-(transicion 'en-verde- 'cambiar-a-amarillo-intermitente)
-(EN-VERDE- ACCION-POR-DEFECTO)
+(transicion 'en-verde 'cambiar-a-amarillo-intermitente)
+(EN-VERDE ACCION-POR-DEFECTO)
 
 (transicion 'en-verde 'cambiar-a-amarillo-intermitente)
 (EN-VERDE ACCION-POR-DEFECTO)
