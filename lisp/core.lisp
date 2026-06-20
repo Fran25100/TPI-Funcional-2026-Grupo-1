@@ -81,7 +81,7 @@ EN-ROJO
 EN-VERDE
 
 #|-------------------------------------------------------------------------------------------------------------------
-Funcion: LogginLights
+Funcion: Loggin-Lights
 Naturaleza: Impura (por FORMAT T escribe en pantalla segun los datos de entrada)
 Estrategia: Simple (implementada con FORMAT )
 Impacto En Memoria: No Destructiva, no realiza cambios
@@ -89,24 +89,23 @@ Impacto En Memoria: No Destructiva, no realiza cambios
 ;correcion: se automatizo el tiempo para que sea calculado directamente dentro de esta funcion, en vez de un tiempo que puede estar
 ;desactualizado, restamos al tiempo el cual esta dado desde 1970 unos 70 años para que se sicronicen correctamente. 
 
-(defun logginLights (color-actual cambio-color unixtemp)
+(defun loggin-Lights (color-actual cambio-color unixtemp)
     (format t "~% Tiempo ~A la luz ah cambiado de color ~A a ~A~%" 
 		(local-time:format-timestring nil (local-time:unix-to-timestamp unixtemp) :format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2) ":" (:sec 2)))
 			(car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color))
 ) )
+;Casos de prueba
+(loggin-Lights 'en-verde 'cambiar-a-amarillo 1781556453)
+Tiempo 2026-06-15 17:47:33 la luz ah cambiado de color EN-VERDE a CAMBIAR-A-AMARILLO
+NIL
 
-;TRANSICION
-(logginLights 'en-verde 'cambiar-a-amarillo 1781556453)
-;Tiempo 2026-06-15 17:47:33 la luz ah cambiado de color EN-VERDE a CAMBIAR-A-AMARILLO
-;NIL
+(loggin-Lights 'en-verde 'cambiar-a-rojo 1781556453)
+Tiempo 2026-06-15 17:47:33 la luz ah cambiado de color EN-VERDE a NIL ;caso de error
+NIL
 
-(logginLights 'en-verde 'cambiar-a-rojo 1781556453)
-;Tiempo 2026-06-15 17:47:33 la luz ah cambiado de color EN-VERDE a NIL ;caso de error
-;NIL
-
-(logginLights 'en-rojo 'cambiar-a-verde 1781556492)
-;Tiempo 2026-06-15 17:48:12 la luz ah cambiado de color EN-ROJO a CAMBIAR-A-VERDE
-;NIL
+(loggin-Lights 'en-rojo 'cambiar-a-verde 1781556492)
+Tiempo 2026-06-15 17:48:12 la luz ah cambiado de color EN-ROJO a CAMBIAR-A-VERDE
+NIL
 
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCIÓN: duracion-ciclo
@@ -114,19 +113,18 @@ NATURALEZA: Pura
 ESTRATEGIA: secuancial (no recursiva, no predicado, no utiliza funciones de orden superior)
 IMPACTO: No destructiva
 -------------------------------------------------------------------------------------------------------------------|#
-; requerimiento 4.a 
+;requerimiento 4.a 
 
 (defun duracion-ciclo (rojo verde amarillo)
     (+ rojo verde amarillo 9) ;9 de intermitencia
 )
-;;;;CAMBIAR CASOS DE PRUEBA
-;ciclo pedido (con iteracion 2 extension 1)
-(print(duracion-ciclo 90 120 6))
-;216
+;CASOS DE PRUEBA
+(duracion-ciclo 90 120 6)
+225
 
 ;otro ciclo
-(print(duracion-ciclo 40 60 5))
-;105
+(duracion-ciclo 40 60 5)
+114
 
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCIÓN: recomendacion-ciclo
@@ -137,18 +135,15 @@ IMPACTO: No destructiva
 ; requerimiento 4.b
 
 (defun recomendacion-ciclo (duracion)
-    (if (and (>= duracion 35) (<= duracion 150))
-		"ciclo optimo"
-		"ciclo no optimo"
-    )
+    (if (and (>= duracion 35) (<= duracion 150)) "ciclo optimo" "ciclo no optimo")
 )
 
-(print (recomendacion-ciclo (duracion-ciclo 90 120 6 )))
-;ciclo no optimo
-(print (recomendacion-ciclo (duracion-ciclo 40 60 6 )))
-;ciclo optimo
-(print (recomendacion-ciclo (duracion-ciclo 7 12 5 )))
-;ciclo no optimo
+(recomendacion-ciclo (duracion-ciclo 90 120 6 ))
+"ciclo no optimo"
+(recomendacion-ciclo (duracion-ciclo 40 60 6 ))
+"ciclo optimo"
+(recomendacion-ciclo (duracion-ciclo 7 12 5 ))
+"ciclo no optimo"
 
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCIÓN: ciclos-por-tiempo
@@ -160,22 +155,20 @@ IMPACTO: No destructiva
     (print "La cantidad de ciclos es de:")
     (print (truncate (/ (* minutos 60) 225)));truncate toma el resultado de una operacion y elimina el decimal, si el resultado es 28.9, quedaria 28
 )
-;caso pedido
+;casos de prueba
 (print(ciclos-por-tiempo 15))
-;4
+"La cantidad de ciclos es de: 4"
 
-;otro caso
 (print(ciclos-por-tiempo 70))
-;18
+"la cantidad de ciclos es de: 18"
 
 #|-------------------------------------------------------------------------------------------------------------------   
-FUNCION AUXILIAR: CalcularRestoIni
+FUNCION AUXILIAR: Calcular-Resto-Ini
 NATURALEZA: pura (dependiendo del resto que recibe, retorna un resultado)
 ESTRATEGIA: alternativa Multiple (cond)
 IMPACTO: No destrutiva
 -------------------------------------------------------------------------------------------------------------------|#
-
-(defun calcularRestoIni (restoIni)
+(defun calcular-Resto-Ini (restoIni)
 	(cond 						  ;(89 92 212 215 221 224)
         ((<= 0 restoIni 89) (list (- 89 restoIni) 3 120 3 6 3)) ;(- 89 restoIni) --> indica lo consumido por rojo
         ((<= 89 restoIni 92) (list 0 (- 92 restoIni) 120 3 6 3)) ;(- 92 restoIni) --> indica lo consumido por el rojo-intermitente
@@ -186,20 +179,20 @@ IMPACTO: No destrutiva
     )
 )
 ;;;REHACER CASOS DE PRUEBA
-(calcularRestoIni 5555) ;caso imposible con error
-;NIL
-	  
+(calcularRestoIni 5555) ;caso imposible y erroneo
+(0 0 0 0 0 -5331)
+
 (calcularRestoIni 210)
-;(0 0 0 0 2 3)
+(0 0 2 3 6 3)
 
 (calcularRestoIni 1)
-;(85 3 117 3 3 3)
+(88 3 120 3 6 3)
 
-(calcularRestoIni 0) ;otro caso imposible, se verifica en su llamada si fuera 0
-;(86 3 117 3 3 3)
-	  
+(calcularRestoIni 0) ;caso imposible y erroneo
+(89 3 120 3 6 3)
+
 (calcularRestoIni 9)
-;(77 3 117 3 3 3)
+(80 3 120 3 6 3)
 	  
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCION AUXILIAR: CalcularRestoFin
@@ -216,7 +209,7 @@ IMPACTO: No destrutiva
 		((<= 93 restoFin 212) (list 90 3 (- restoFin  93) 0 0 0)) ;(- restoFin  93) --> indica lo consumido por verde
         ((<= 213 restoFin 215) (list 90 3 120 (- restoFin  213) 0 0)) ;(- restoFin  213) --> indica lo consumido por verde-intermitente
 		((<= 210 restoFin 212) (list 90 3 120 3 (- restoFin  210) 0)) ;(- restoFin  210) --> indica lo consumido por amarillo
-        (t (list 90 3 120 3 6 (- restoFin  213))) ;(-  restoFin  213) --> indica lo consumido por amarillo-intermitente
+        (t (list 90 3 120 3 6 (- restoFin  213))) ;(- restoFin  213) --> indica lo consumido por amarillo-intermitente
     )
 )
 ;;;CAMBIAR CASOS DE PRUEBA
