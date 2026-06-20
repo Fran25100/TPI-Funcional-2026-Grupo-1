@@ -19,15 +19,23 @@ IMPACTO: No destructiva
     )
 )
 
-(print(transicion 'en-verde 'cambiar-a-amarillo))
-;(EN-VERDE VERDE-INTERMITENTE "CAMBIAR-A-AMARILLO")
+(transicion 'en-verde-intermitente 'cambiar-a-amarillo)
+(EN-VERDE-INTERMITENTE "CAMBIAR-A-AMARILLO")
 
-(print(transicion 'en-verde 'cambiar-a-rojo))
-;(EN-VERDE ACCION-POR-DEFECTO)
+(transicion 'en-verde-intermitente 'cambiar-a-rojo)
+(EN-VERDE-INTERMITENTE ACCION-POR-DEFECTO)
 
-(print(transicion 'en-amarillo 'cambiar-a-rojo))
-;(EN-AMARILLO AMARILLO-INTERMITENTE "CAMBIAR-A-ROJO")
+(transicion 'en-verde- 'cambiar-a-amarillo)
+(EN-VERDE- ACCION-POR-DEFECTO)
 
+(transicion 'en-verde- 'cambiar-a-amarillo-intermitente)
+(EN-VERDE- ACCION-POR-DEFECTO)
+
+(transicion 'en-verde 'cambiar-a-amarillo-intermitente)
+(EN-VERDE ACCION-POR-DEFECTO)
+
+(transicion 'en-amarillo 'cambiar-a-amarillo-intermitente)
+(EN-AMARILLO "CAMBIAR-A-AMARILLO-INTERMITENTE")
 
 
 #|-------------------------------------------------------------------------------------------------------------------
