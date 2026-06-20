@@ -45,39 +45,37 @@ Estrategia: Simple (implementada con MOD y COND)
 Impacto En Memoria: No Destructiva, no realiza cambios
 -------------------------------------------------------------------------------------------------------------------|#
 
-(defun timer (timestap) ;cuando tenes un semaforo, al terminar el tiempo de rojo, no se le suma +3 de intermitencia al rojo
-									 ;la intermitencia empieza a cambiar en los ultimos 3 segundos de cada color
-        (cond
+(defun timer (timestap)
+        (cond			;(89 92 212 215 221 224)
             ((<= 0 (mod timestap 225) 89) 'en-rojo )
             ((<= 90 (mod timestap 225) 92) 'en-rojo-intermitente )
-            ((<= 93 (mod timestap 225) 209) 'en-verde )
-            ((<= 210 (mod timestap 225) 212) 'en-verde-intermitente )
-            ((<= 213 (mod timestap 225) 215) 'en-amarillo )
+            ((<= 93 (mod timestap 225) 212) 'en-verde )
+            ((<= 213 (mod timestap 225) 215) 'en-verde-intermitente )
+            ((<= 216 (mod timestap 225) 221) 'en-amarillo )
             (t 'en-amarillo-intermitente) 
     )
 )
-;;;;CAMBIAR CASOS DE PRUEBA
-(print(timer 526))
-;EN-VERDE
 
-(print(timer 2869))
-;EN-ROJO
+(timer 3592)
+EN-AMARILLO
 
-(print(timer 2895))
-;EN-ROJO-INTERMITENTE
+(timer 3593)
+EN-AMARILLO
 
-(print(timer 1))
-;EN-ROJO
+(timer 3595)
+EN-AMARILLO
 
-(print(timer 213))
-;EN-AMARILLO-INTERMITENTE
+(timer 3598)
+EN-AMARILLO-INTERMITENTE
 
-(print(timer 212))
-;EN-AMARILLO
+(timer 5716)
+EN-ROJO-INTERMITENTE
 
-(print(timer 217))
-;EN-ROJO
+(timer 5713)
+EN-ROJO
 
+(timer 5723)
+EN-VERDE
 
 #|-------------------------------------------------------------------------------------------------------------------
 Funcion: LogginLights
