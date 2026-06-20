@@ -195,41 +195,41 @@ IMPACTO: No destrutiva
 (81 3 120 3 6 3)
 	  
 #|-------------------------------------------------------------------------------------------------------------------
-FUNCION AUXILIAR: CalcularRestoFin
+FUNCION AUXILIAR: Calcular-Resto-Fin
 NATURALEZA: pura (dependiendo del resto que recibe, retorna un resultado)
 ESTRATEGIA: alternativa Multiple (cond)
 IMPACTO: No destrutiva
 -------------------------------------------------------------------------------------------------------------------|#
 
-(defun calcularRestoFin (restoFin)
+(defun Calcular-Resto-Fin (restoFin)
 	(cond  							;(89 92 212 215 221 224)
         ;; Al final de la hora es al revés: calculamos cuánto se consumió desde el inicio de ese último ciclo incompleto hasta llegar al segundo 'restoFin'
-        ((<= 0 restoFin 89) (list restoFin 0 0 0 0 0)) ;(- 89 restoFin) --> indica lo consumido por rojo
+        ((<= 0 restoFin 89) (list restoFin 0 0 0 0 0)) ; restoFin--> indica lo consumido por rojo
         ((<= 90 restoFin 92) (list 90 (- restoFin  90) 0 0 0 0)) ;(- restoFin 90) --> indica lo consumido por el rojo-intermitente
 		((<= 93 restoFin 212) (list 90 3 (- restoFin  93) 0 0 0)) ;(- restoFin  93) --> indica lo consumido por verde
         ((<= 213 restoFin 215) (list 90 3 120 (- restoFin  213) 0 0)) ;(- restoFin  213) --> indica lo consumido por verde-intermitente
-		((<= 210 restoFin 212) (list 90 3 120 3 (- restoFin  210) 0)) ;(- restoFin  210) --> indica lo consumido por amarillo
-        (t (list 90 3 120 3 6 (- restoFin  213))) ;(- restoFin  213) --> indica lo consumido por amarillo-intermitente
+		((<= 216 restoFin 221) (list 90 3 120 3 (- restoFin  216) 0)) ;(- restoFin  221) --> indica lo consumido por amarillo
+        (t (list 90 3 120 3 6 (- restoFin  222))) ;(- restoFin  222) --> indica lo consumido por amarillo-intermitente
     )
 )
 ;;;CAMBIAR CASOS DE PRUEBA
-(calcularRestoFin 5555) ;mismo caso imposible
-;NIL
+(Calcular-Resto-Fin 5555) ;mismo caso imposible
+(90 3 120 3 6 5333)
 
-(calcularRestoFin 203)
-;(87 3 113 0 0 0)
+(Calcular-Resto-Fin 203)
+(90 3 110 0 0 0)
 
-(calcularRestoFin 89)
-;(87 2 0 0 0 0)
+(Calcular-Resto-Fin 89)
+(89 0 0 0 0 0)
 
-(calcularRestoFin 87)
-;(87 0 0 0 0 0)
+(Calcular-Resto-Fin 87)
+(87 0 0 0 0 0)
 	  
-(calcularRestoFin 120)
-;(87 3 30 0 0 0)
+(Calcular-Resto-Fin 120)
+(90 3 27 0 0 0)
 
-(calcularRestoFin 0) ;caso imposible
-;(0 0 0 0 0 0)
+(Calcular-Resto-Fin 0) ;caso imposible pero correcto
+(0 0 0 0 0 0)
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCION AUXILIAR: calcularPorcentajes
 NATURALEZA: Pura (devuelve una lista con los porcentajes de cada estado del semáforo)
