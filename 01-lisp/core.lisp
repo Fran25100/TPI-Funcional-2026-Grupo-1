@@ -9,10 +9,13 @@ IMPACTO: No destructiva
 
 (defun transicion (color-actual cambiar-a)
     (cond
-        ((and (equal color-actual 'en-verde) (equal cambiar-a 'cambiar-a-amarillo)) (list color-actual 'verde-intermitente "CAMBIAR-A-AMARILLO" ))
-        ((and (equal color-actual 'en-amarillo) (equal cambiar-a 'cambiar-a-rojo)) (list color-actual 'amarillo-intermitente "CAMBIAR-A-ROJO"))
-        ((and (equal color-actual 'en-rojo) (equal cambiar-a 'cambiar-a-verde)) (list color-actual 'rojo-intermitente "CAMBIAR-A-VERDE" ))
-        (t (list color-actual 'accion-por-defecto ))
+        ((and (equal color-actual 'en-verde-intermitente) (equal cambiar-a 'cambiar-a-amarillo)) (list color-actual "CAMBIAR-A-AMARILLO" ))
+        ((and (equal color-actual 'en-amarillo--intermitente) (equal cambiar-a 'cambiar-a-rojo)) (list color-actual "CAMBIAR-A-ROJO"))
+        ((and (equal color-actual 'en-rojo-intermitente) (equal cambiar-a 'cambiar-a-verde)) (list color-actual "CAMBIAR-A-VERDE" ))
+		((and (equal color-actual 'en-verde) (equal cambiar-a 'cambiar-a-verde-intermitente)) (list color-actual "CAMBIAR-A-VERDE-INTERMITENTE"))
+		((and (equal color-actual 'en-amarillo) (equal cambiar-a 'cambiar-a-amarillo-intermitente)) (list color-actual "CAMBIAR-A-AMARILLO-INTERMITENTE"))
+		((and (equal color-actual 'en-rojo) (equal cambiar-a 'cambiar-a-rojo-intermitente)) (list color-actual "CAMBIAR-A-ROJO-INTERMITENTE"))
+        (t (list color-actual 'accion-por-defecto))
     )
 )
 
