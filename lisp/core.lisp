@@ -156,10 +156,10 @@ IMPACTO: No destructiva
     (print (truncate (/ (* minutos 60) 225)));truncate toma el resultado de una operacion y elimina el decimal, si el resultado es 28.9, quedaria 28
 )
 ;casos de prueba
-(print(ciclos-por-tiempo 15))
+(ciclos-por-tiempo 15)
 "La cantidad de ciclos es de: 4"
 
-(print(ciclos-por-tiempo 70))
+(ciclos-por-tiempo 70)
 "la cantidad de ciclos es de: 18"
 
 #|-------------------------------------------------------------------------------------------------------------------   
@@ -170,29 +170,29 @@ IMPACTO: No destrutiva
 -------------------------------------------------------------------------------------------------------------------|#
 (defun calcular-Resto-Ini (restoIni)
 	(cond 						  ;(89 92 212 215 221 224)
-        ((<= 0 restoIni 89) (list (- 89 restoIni) 3 120 3 6 3)) ;(- 89 restoIni) --> indica lo consumido por rojo
-        ((<= 89 restoIni 92) (list 0 (- 92 restoIni) 120 3 6 3)) ;(- 92 restoIni) --> indica lo consumido por el rojo-intermitente
-		((<= 93 restoIni 212) (list 0 0 (- 212 restoIni) 3 6 3)) ;(- 212 restoIni) --> indica lo consumido por verde
-        ((<= 213 restoIni 215) (list 0 0 0 (- 215 restoIni) 6 3)) ;(- 215 restoIni) --> indica lo consumido por verde-intermitente
-		((<= 216 restoIni 221) (list 0 0 0 0 (- 221 restoIni) 3)) ;(- 221 restoIni) --> indica lo consumido por amarillo
-        (t (list 0 0 0 0 0 (- 224 restoIni))) ;(-224 restoIni) --> indica lo consumido por amarillo-intermitente
+        ((<= 0 restoIni 89) (list (- 90 restoIni) 3 120 3 6 3)) ;(- 90 restoIni) --> indica lo consumido por rojo
+        ((<= 89 restoIni 92) (list 0 (- 93 restoIni) 120 3 6 3)) ;(- 93 restoIni) --> indica lo consumido por el rojo-intermitente
+		((<= 93 restoIni 212) (list 0 0 (- 213 restoIni) 3 6 3)) ;(- 213 restoIni) --> indica lo consumido por verde
+        ((<= 213 restoIni 215) (list 0 0 0 (- 216 restoIni) 6 3)) ;(- 216 restoIni) --> indica lo consumido por verde-intermitente
+		((<= 216 restoIni 221) (list 0 0 0 0 (- 222 restoIni) 3)) ;(- 222 restoIni) --> indica lo consumido por amarillo
+        (t (list 0 0 0 0 0 (- 225 restoIni))) ;(-225 restoIni) --> indica lo consumido por amarillo-intermitente
     )
 )
-;;;REHACER CASOS DE PRUEBA
-(calcularRestoIni 5555) ;caso imposible y erroneo
-(0 0 0 0 0 -5331)
+;CASOS DE PRUEBA
+(calcular-Resto-Ini 5555) ;caso imposible y erroneo
+(0 0 0 0 0 -5330)
 
-(calcularRestoIni 210)
-(0 0 2 3 6 3)
+(calcular-Resto-Ini 210)
+(0 0 3 3 6 3)
 
-(calcularRestoIni 1)
-(88 3 120 3 6 3)
-
-(calcularRestoIni 0) ;caso imposible y erroneo
+(calcular-Resto-Ini 1)
 (89 3 120 3 6 3)
 
-(calcularRestoIni 9)
-(80 3 120 3 6 3)
+(calcular-Resto-Ini 0) ;caso imposible pero correcto
+(90 3 120 3 6 3)
+
+(calcular-Resto-Ini 9)
+(81 3 120 3 6 3)
 	  
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCION AUXILIAR: CalcularRestoFin
