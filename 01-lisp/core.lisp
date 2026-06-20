@@ -37,15 +37,15 @@ Impacto En Memoria: No Destructiva, no realiza cambios
 (defun timer (timestap) ;cuando tenes un semaforo, al terminar el tiempo de rojo, no se le suma +3 de intermitencia al rojo
 									 ;la intermitencia empieza a cambiar en los ultimos 3 segundos de cada color
         (cond
-            ((<= 0 (mod timestap 216) 86) 'en-rojo )
-            ((<= 87 (mod timestap 216) 89) 'en-rojo-intermitente )
-            ((<= 90 (mod timestap 216) 206) 'en-verde )
-            ((<= 207 (mod timestap 216) 209) 'en-verde-intermitente )
-            ((<= 210 (mod timestap 216) 212) 'en-amarillo )
+            ((<= 0 (mod timestap 225) 89) 'en-rojo )
+            ((<= 90 (mod timestap 225) 92) 'en-rojo-intermitente )
+            ((<= 93 (mod timestap 225) 209) 'en-verde )
+            ((<= 210 (mod timestap 225) 212) 'en-verde-intermitente )
+            ((<= 213 (mod timestap 225) 215) 'en-amarillo )
             (t 'en-amarillo-intermitente) 
     )
 )
-
+;;;;CAMBIAR CASOS DE PRUEBA
 (print(timer 526))
 ;EN-VERDE
 
@@ -105,9 +105,9 @@ IMPACTO: No destructiva
 ; requerimiento 4.a 
 
 (defun duracion-ciclo (rojo verde amarillo)
-    (+ rojo verde amarillo)
+    (+ rojo verde amarillo 9) ;9 de intermitencia
 )
-
+;;;;CAMBIAR CASOS DE PRUEBA
 ;ciclo pedido (con iteracion 2 extension 1)
 (print(duracion-ciclo 90 120 6))
 ;216
@@ -144,11 +144,10 @@ NATURALEZA: Impura (escribe en pantalla un resultado dependiendo de los minutos 
 ESTRATEGIA: estructura secuencial (no presenta recursion en su implementacion)
 IMPACTO: No destructiva
 -------------------------------------------------------------------------------------------------------------------|#
-(defun ciclos-por-tiempo(minutos)
+(defun ciclos-por-tiempo (minutos)
     (print "La cantidad de ciclos es de:")
-    (print (truncate (/ (* minutos 60) 216)));truncate toma el resultado de una operacion y elimina el decimal, si el resultado es 28.9, quedaria 28
+    (print (truncate (/ (* minutos 60) 225)));truncate toma el resultado de una operacion y elimina el decimal, si el resultado es 28.9, quedaria 28
 )
-
 ;caso pedido
 (print(ciclos-por-tiempo 15))
 ;4
@@ -165,16 +164,16 @@ IMPACTO: No destrutiva
 -------------------------------------------------------------------------------------------------------------------|#
 
 (defun calcularRestoIni (restoIni)
-	(cond 
-        ((<= 0 restoIni 86) (list (- 86 restoIni) 3 117 3 3 3)) ;(- 86 restoIni) --> indica lo consumido por rojo
-        ((<= 87 restoIni 89) (list 0 (- 90 restoIni) 117 3 3 3)) ;(- 90 restoIni) --> indica lo consumido por el rojo-intermitente
-		((<= 91 restoIni 206) (list 0 0 (- 206 restoIni) 3 3 3)) ;(- 206 restoIni) --> indica lo consumido por verde
-        ((<= 207 restoIni 209) (list 0 0 0 (- 209 restoIni) 3 3)) ;(- 209 restoIni) --> indica lo consumido por verde-intermitente
-		((<= 209 restoIni 212) (list 0 0 0 0 (- 212 restoIni) 3)) ;(- 212 restoIni) --> indica lo consumido por amarillo
-        ( t (list 0 0 0 0 0 (- 215 restoIni))) ;(-215 restoIni) --> indica lo consumido por amarillo-intermitente
+	(cond 						  ;(89 92 212 215 221 224)
+        ((<= 0 restoIni 89) (list (- 89 restoIni) 3 120 3 6 3)) ;(- 89 restoIni) --> indica lo consumido por rojo
+        ((<= 89 restoIni 92) (list 0 (- 92 restoIni) 120 3 6 3)) ;(- 92 restoIni) --> indica lo consumido por el rojo-intermitente
+		((<= 93 restoIni 212) (list 0 0 (- 212 restoIni) 3 6 3)) ;(- 212 restoIni) --> indica lo consumido por verde
+        ((<= 213 restoIni 215) (list 0 0 0 (- 215 restoIni) 6 3)) ;(- 215 restoIni) --> indica lo consumido por verde-intermitente
+		((<= 216 restoIni 221) (list 0 0 0 0 (- 221 restoIni) 3)) ;(- 221 restoIni) --> indica lo consumido por amarillo
+        (t (list 0 0 0 0 0 (- 224 restoIni))) ;(-224 restoIni) --> indica lo consumido por amarillo-intermitente
     )
 )
-
+;;;REHACER CASOS DE PRUEBA
 (calcularRestoIni 5555) ;caso imposible con error
 ;NIL
 	  
@@ -198,17 +197,17 @@ IMPACTO: No destrutiva
 -------------------------------------------------------------------------------------------------------------------|#
 
 (defun calcularRestoFin (restoFin)
-	(cond  
+	(cond  							;(89 92 212 215 221 224)
         ;; Al final de la hora es al revés: calculamos cuánto se consumió desde el inicio de ese último ciclo incompleto hasta llegar al segundo 'restoFin'
-        ((<= 0 restoFin 86) (list restoFin 0 0 0 0 0)) ;(- 86 restoFin) --> indica lo consumido por rojo
-        ((<= 87 restoFin 89) (list 87 (-  restoFin  87) 0 0 0 0)) ;(-  restoFin  87) --> indica lo consumido por el rojo-intermitente
-		((<= 90 restoFin 206) (list 87 3 (-  restoFin  90) 0 0 0)) ;(-  restoFin  90) --> indica lo consumido por verde
-        ((<= 207 restoFin 209) (list 87 3 117 (-  restoFin  207) 0 0)) ;(-  restoFin  207) --> indica lo consumido por verde-intermitente
-		((<= 210 restoFin 212) (list 87 3 117 3 (-  restoFin  210) 0)) ;(-  restoFin  210) --> indica lo consumido por amarillo
-        ( t (list 87 3 117 3 3 (-  restoFin  213))) ;(-  restoFin  213) --> indica lo consumido por amarillo-intermitente
+        ((<= 0 restoFin 89) (list restoFin 0 0 0 0 0)) ;(- 89 restoFin) --> indica lo consumido por rojo
+        ((<= 90 restoFin 92) (list 90 (- restoFin  90) 0 0 0 0)) ;(- restoFin 90) --> indica lo consumido por el rojo-intermitente
+		((<= 93 restoFin 212) (list 90 3 (- restoFin  93) 0 0 0)) ;(- restoFin  93) --> indica lo consumido por verde
+        ((<= 213 restoFin 215) (list 90 3 120 (- restoFin  213) 0 0)) ;(- restoFin  213) --> indica lo consumido por verde-intermitente
+		((<= 210 restoFin 212) (list 90 3 120 3 (- restoFin  210) 0)) ;(- restoFin  210) --> indica lo consumido por amarillo
+        (t (list 90 3 120 3 6 (- restoFin  213))) ;(-  restoFin  213) --> indica lo consumido por amarillo-intermitente
     )
 )
-
+;;;CAMBIAR CASOS DE PRUEBA
 (calcularRestoFin 5555) ;mismo caso imposible
 ;NIL
 
@@ -232,15 +231,16 @@ NATURALEZA: Pura (devuelve una lista con los porcentajes de cada estado del sem�
 ESTRATEGIA: Secuencial (implementamos mediante operaciones aritméticas y la construcción de listas)
 IMPACTO: No destructiva
 -------------------------------------------------------------------------------------------------------------------|#
-
+;como ahora el ciclo es de 225, en 3600 entran 16 ciclos exactos, lo que se sabe es que 15 entran si o si, y hay que determinar que paso con el ultimo,
+;si es que esta completo, o solo entro una parte
 (defun calcularPorcentajes (ListaIni ListaFin)
 	(list 
-        (float (/ (* (+ 1392 (nth 0 ListaFin) (nth 0 ListaIni)) 100) 3600)) ;rojo
-	    (float (/ (* (+ 48 (nth 1 ListaFin) (nth 1 ListaIni)) 100) 3600)) ;rojo-intermitente
-	    (float (/ (* (+ 1872 (nth 2 ListaFin) (nth 2 ListaIni)) 100)3600)) ;verde
-        (float (/ (* (+ 48 (nth 3 ListaFin) (nth 3 ListaIni)) 100) 3600)) ;verde-intermitente
-        (float (/ (* (+ 48 (nth 4 ListaFin) (nth 4 ListaIni)) 100)3600)) ;amarillo
-        (float (/ (* (+ 48 (nth 5 ListaFin) (nth 5 ListaIni)) 100) 3600)) ;amarillo-intermitente
+        (float (/ (* (+ 1350 (nth 0 ListaFin) (nth 0 ListaIni)) 100) 3600)) ;rojo
+	    (float (/ (* (+ 45 (nth 1 ListaFin) (nth 1 ListaIni)) 100) 3600)) ;rojo-intermitente
+	    (float (/ (* (+ 1800 (nth 2 ListaFin) (nth 2 ListaIni)) 100)3600)) ;verde
+        (float (/ (* (+ 45 (nth 3 ListaFin) (nth 3 ListaIni)) 100) 3600)) ;verde-intermitente
+        (float (/ (* (+ 90 (nth 4 ListaFin) (nth 4 ListaIni)) 100)3600)) ;amarillo
+        (float (/ (* (+ 45 (nth 5 ListaFin) (nth 5 ListaIni)) 100) 3600)) ;amarillo-intermitente
     )
 )
 
@@ -253,16 +253,18 @@ IMPACTO: no destructiva
 -------------------------------------------------------------------------------------------------------------------|#
 ;actualizado
 (defun distribucionTemp (unix)
-	(if (zerop (mod unix 216)) "| 40,28% rojo| 1,39% rojo-intermitente | 54,17% verde| 1,39% verde-intermitente| 1,39% amarillo| 1,39% amarillo intermitente|"
+	(if (zerop (mod unix 225)) "| 40.0% rojo| 1.33% rojo-intermitente | 53.33% verde| 1.33% verde-intermitente| 2.66% amarillo| 1.33% amarillo intermitente|"
 	    (format nil "~%| ~A% rojo| ~A% rojo-intermitente| ~A% verde | ~A% verde-intermitente| ~A% amarillo| ~A% amarillo-intermitente|"
-	    (nth 0 (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216 (mod unix 216))) 216))))
-		(nth 1 (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216 (mod unix 216))) 216))))
-	    (nth 2 (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216 (mod unix 216))) 216))))
-        (nth 3 (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216 (mod unix 216))) 216))))
-        (nth 4 (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216 (mod unix 216))) 216))))
-        (nth 5 (calcularPorcentajes (calcularRestoIni (mod unix 216)) (calcularRestoFin (mod (- 3600 (- 216 (mod unix 216))) 216)))))
+	    (nth 0 (calcularPorcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225))))
+		(nth 1 (calcularPorcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225))))
+	    (nth 2 (calcularPorcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225))))
+        (nth 3 (calcularPorcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225))))
+        (nth 4 (calcularPorcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225))))
+        (nth 5 (calcularPorcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225)))))
     )					
 )
+
+;;;;;CAMBIAR CASOS DE PRUEBA
 ;lo cambiamos a nth ya que utilizar car/cdr duplicaba o utilizaba algunos valores erroneos
 
 (print (distribuciontemp 3600))
