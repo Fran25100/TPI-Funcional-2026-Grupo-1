@@ -137,7 +137,7 @@ IMPACTO: No destructiva
 (defun recomendacion-ciclo (duracion)
     (if (and (>= duracion 35) (<= duracion 150)) "ciclo optimo" "ciclo no optimo")
 )
-
+;Casos de pruena
 (recomendacion-ciclo (duracion-ciclo 90 120 6 ))
 "ciclo no optimo"
 (recomendacion-ciclo (duracion-ciclo 40 60 6 ))
@@ -231,15 +231,15 @@ IMPACTO: No destrutiva
 (Calcular-Resto-Fin 0) ;caso imposible pero correcto
 (0 0 0 0 0 0)
 #|-------------------------------------------------------------------------------------------------------------------
-FUNCION AUXILIAR: calcularPorcentajes
+FUNCION AUXILIAR: calcular-Porcentajes
 NATURALEZA: Pura (devuelve una lista con los porcentajes de cada estado del semáforo)
 ESTRATEGIA: Secuencial (implementamos mediante operaciones aritméticas y la construcción de listas)
 IMPACTO: No destructiva
 -------------------------------------------------------------------------------------------------------------------|#
 ;como ahora el ciclo es de 225, en 3600 entran 16 ciclos exactos, lo que se sabe es que 15 entran si o si, y hay que determinar que paso con el ultimo,
 ;si es que esta completo, o solo entro una parte
-(defun calcularPorcentajes (ListaIni ListaFin)
-	(list 
+(defun calcular-Porcentajes (ListaIni ListaFin)
+	(list ;todo basado en la regla de 3 simples
         (float (/ (* (+ 1350 (nth 0 ListaFin) (nth 0 ListaIni)) 100) 3600)) ;rojo
 	    (float (/ (* (+ 45 (nth 1 ListaFin) (nth 1 ListaIni)) 100) 3600)) ;rojo-intermitente
 	    (float (/ (* (+ 1800 (nth 2 ListaFin) (nth 2 ListaIni)) 100)3600)) ;verde
@@ -249,36 +249,45 @@ IMPACTO: No destructiva
     )
 )
 
-
 #|-------------------------------------------------------------------------------------------------------------------
-FUNCION: distribucionTemp
+FUNCION: distribucion-Time
 NATURALEZA: impura (escribe en pantalla y en un archivo)
 ESTRATEGIA: secuencial, condicional doble (implementada con if, format y nth)
 IMPACTO: no destructiva
 -------------------------------------------------------------------------------------------------------------------|#
 ;actualizado
-(defun distribucionTemp (unix)
+(defun distribucion-Time (unix)
 	(if (zerop (mod unix 225)) "| 40.0% rojo| 1.33% rojo-intermitente | 53.33% verde| 1.33% verde-intermitente| 2.66% amarillo| 1.33% amarillo intermitente|"
 	    (format nil "~%| ~A% rojo| ~A% rojo-intermitente| ~A% verde | ~A% verde-intermitente| ~A% amarillo| ~A% amarillo-intermitente|"
-	    (nth 0 (calcularPorcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225))))
-		(nth 1 (calcularPorcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225))))
-	    (nth 2 (calcularPorcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225))))
-        (nth 3 (calcularPorcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225))))
-        (nth 4 (calcularPorcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225))))
-        (nth 5 (calcularPorcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225)))))
+	    (nth 0 (calcular-Porcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225))))
+		(nth 1 (calcular-Porcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225))))
+	    (nth 2 (calcular-Porcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225))))
+        (nth 3 (calcular-Porcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225))))
+        (nth 4 (calcular-Porcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225))))
+        (nth 5 (calcular-Porcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225)))))
     )					
 )
 
-;;;;;CAMBIAR CASOS DE PRUEBA
+;CASOS DE PRUEBA
 ;lo cambiamos a nth ya que utilizar car/cdr duplicaba o utilizaba algunos valores erroneos
+;una cosa importante, es que al estar actualizado con ciclo de 225, provoca que entren en 1 hora exactamente 16 cilos enteros
+;provocando que todo ciclo que no haya sido consumido al principio, sea consumido al final, dando casi siempre los mismo ciclos
+;ciclos sin restos 0
+(distribucion-Time 1782065340)
+"| 40.0% rojo| 1.3333334% rojo-intermitente| 53.333332% verde | 1.3333334% verde-intermitente| 2.6666667% amarillo| 1.3333334% amarillo-intermitente|"
 
-(print (distribuciontemp 3600))
-;| 40.666668% rojo| 1.3333334% rojo-intermitente| 53.72222% verde | 1.4166666% verde-intermitente| 1.4166666% amarillo| 1.4166666% amarillo-intermitente|
+(distribucion-Time 6875458)
+"| 40.0% rojo| 1.3333334% rojo-intermitente| 53.333332% verde | 1.3333334% verde-intermitente| 2.6666667% amarillo| 1.3333334% amarillo-intermitente|"
 
+(distribucion-Time 3600) ;ciclo con resto 0
+"| 40.0% rojo| 1.33% rojo-intermitente | 53.33% verde| 1.33% verde-intermitente| 2.66% amarillo| 1.33% amarillo intermitente|"
+
+(distribucion-Time 5549)
+"| 40.0% rojo| 1.3333334% rojo-intermitente| 53.305557% verde | 1.3333334% verde-intermitente| 2.6666667% amarillo| 1.3333334% amarillo-intermitente|"
+
+;*********************************
 ;Extension 2, sistema de datos
-
 ;Actualizado
-
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCION: crear-informe
 NATURALEZA: inpura (escribe en el archivo)
