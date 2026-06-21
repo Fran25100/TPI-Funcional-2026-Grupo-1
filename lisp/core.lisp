@@ -1,12 +1,25 @@
+(load "[ruta del quicklisp]quicklisp/setup.lisp")  ;tiene que ingresar la direccion donde se encuentra quicklisp
+(ql:quickload "local-time")
 #|-------------------------------------------------------------------------------------------------------------------
 Funcion: Transicion
 NATURALEZA: Pura
 ESTRATEGIA: estructura condicional (implementada con COND)
 IMPACTO: No destructiva
 -------------------------------------------------------------------------------------------------------------------|#
-(load "[ruta del quicklisp]quicklisp/setup.lisp")  ;tiene que ingresar la direccion donde se encuentra quicklisp
-(ql:quickload "local-time")
+;;erroneo 1
+/*
+(defun transicion (color-actual cambiar-a)
+    (cond
+        ((and (equal color-actual 'en-verde) (equal cambiar-a 'cambiar-a-amarillo)) (list color-actual 'verde-intermitente "CAMBIAR-A-AMARILLO" ))
+        ((and (equal color-actual 'en-amarillo) (equal cambiar-a 'cambiar-a-rojo)) (list color-actual 'amarillo-intermitente "CAMBIAR-A-ROJO"))
+        ((and (equal color-actual 'en-rojo) (equal cambiar-a 'cambiar-a-verde)) (list color-actual 'rojo-intermitente "CAMBIAR-A-VERDE" ))
+        (t (list color-actual 'accion-por-defecto ))
+    )
+)
+*/
 
+;;erroneo 2
+/*
 (defun transicion (color-actual cambiar-a)
     (cond
         ((and (equal color-actual 'en-verde-intermitente) (equal cambiar-a 'cambiar-a-amarillo)) (list color-actual "CAMBIAR-A-AMARILLO" ))
@@ -18,28 +31,41 @@ IMPACTO: No destructiva
         (t (list color-actual 'accion-por-defecto))
     )
 )
+*/
 
+(defun transicion (color-actual cambiar-a)
+    (cond
+        ((and (eql color-actual 'en-verde-intermitente) (eql cambiar-a 'cambiar-a-amarillo)) (list color-actual "CAMBIAR-A-AMARILLO" ))
+        ((and (eql color-actual 'en-amarillo--intermitente) (eql cambiar-a 'cambiar-a-rojo)) (list color-actual "CAMBIAR-A-ROJO"))
+        ((and (eql color-actual 'en-rojo-intermitente) (eql cambiar-a 'cambiar-a-verde)) (list color-actual "CAMBIAR-A-VERDE" ))
+		((and (eql color-actual 'en-verde) (eql cambiar-a 'cambiar-a-verde-intermitente)) (list color-actual "CAMBIAR-A-VERDE-INTERMITENTE"))
+		((and (eql color-actual 'en-amarillo) (eql cambiar-a 'cambiar-a-amarillo-intermitente)) (list color-actual "CAMBIAR-A-AMARILLO-INTERMITENTE"))
+		((and (eql color-actual 'en-rojo) (eql cambiar-a 'cambiar-a-rojo-intermitente)) (list color-actual "CAMBIAR-A-ROJO-INTERMITENTE"))
+        (t (list color-actual 'accion-por-defecto))
+    )
+)
+
+;;Casos de prueba
 (transicion 'en-verde-intermitente 'cambiar-a-amarillo)
-(EN-VERDE-INTERMITENTE "CAMBIAR-A-AMARILLO")
+;(EN-VERDE-INTERMITENTE "CAMBIAR-A-AMARILLO")
 
 (transicion 'en-verde 'cambiar-a-verde-intermitente)
-(EN-VERDE "CAMBIAR-A-VERDE-INTERMITENTE")
+;(EN-VERDE "CAMBIAR-A-VERDE-INTERMITENTE")
 
 (transicion 'en-rojo 'cambiar-a-rojo-intermitente)
-(EN-ROJO "CAMBIAR-A-ROJO-INTERMITENTE")
+;(EN-ROJO "CAMBIAR-A-ROJO-INTERMITENTE")
 
 (transicion 'en-rojo-intermitente 'cambiar-a-verde)
-(EN-ROJO-INTERMITENTE "CAMBIAR-A-VERDE")
+;(EN-ROJO-INTERMITENTE "CAMBIAR-A-VERDE")
 
 (transicion 'en-amarillo-intermitente 'cambiar-a-rojo)
-(EN-AMARILLO-INTERMITENTE "CAMBIAR-A-ROJO")
+;(EN-AMARILLO-INTERMITENTE "CAMBIAR-A-ROJO")
 
 (transicion 'en-verde 'cambiar-a-amarillo-intermitente)
-(EN-VERDE ACCION-POR-DEFECTO)
+;EN-VERDE ACCION-POR-DEFECTO)
 
 (transicion 'en-amarillo 'cambiar-a-amarillo-intermitente)
-(EN-AMARILLO "CAMBIAR-A-AMARILLO-INTERMITENTE")
-
+;(EN-AMARILLO "CAMBIAR-A-AMARILLO-INTERMITENTE")
 
 #|-------------------------------------------------------------------------------------------------------------------
 Funcion: timer
