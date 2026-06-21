@@ -97,9 +97,9 @@
 ;; desactualizado, restamos al tiempo el cual esta dado desde 1970 unos 70 años
 ;; para que se sicronicen correctamente. 
 
-(defun loggin-Lights (color-actual cambio-color unixtemp)
+(defun loggin-Lights (color-actual cambio-color unix-temp)
     (format t "~% Tiempo ~A la luz ah cambiado de color ~A a ~A~%" 
-		(local-time:format-timestring nil (local-time:unix-to-timestamp unixtemp):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2) ":" (:sec 2)))
+		(local-time:format-timestring nil (local-time:unix-to-timestamp unix-temp):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2) ":" (:sec 2)))
 			(car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color))
 	)
 ) 
@@ -368,7 +368,7 @@
 ;;; IMPACTO: no destructiva
 ;;; -------------------------------------------------------------------------------------------------------------------
 
-(defun informe (color-actual cambio-color unixtemp)
+(defun informe (color-actual cambio-color unix-temp)
     (crear-informe)
  	(with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output :if-exists :append :if-does-not-exist :create)
    	(format stream "~%=========================================~%")
@@ -378,7 +378,7 @@
     (car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color)) )
  	)
 	; pasandole loggin para ver en pantalla
-   (logginLights color-actual cambio-color unixtemp)
+   (logginLights color-actual cambio-color unix-temp)
 )
 
 (informe 'en-verde 'cambiar-a-amarillo 1742163000)
