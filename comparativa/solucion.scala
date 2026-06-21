@@ -1,34 +1,5 @@
 /* funcion: transicion */
 
-/*erroneo 1:
-    def transicion(colorActual: String, colorACambiar: String) = { // declare la funcion, como parametro las variables strings
-      (colorActual, colorACambiar) match { // funciona como un cond, donde los 2 parametros se comparan en cada caso
-        case ("rojo", "verde") => (println(s"$colorActual rojoIntermitente cambia a $colorACambiar")
-        ) // caso1. => indica que hacia al lado donde apunta es el resultado, en este caso el mensaje a imprimir
-        case ("verde", "amarillo") => (println(s"$colorActual verdeIntermitente cambia a $colorACambiar")
-        ) // caso 2. => indica que hacia al lado donde apunta es el resultado, en este caso el mensaje a imprimir
-        case ("amarillo", "rojo") => (println( s"$colorActual amarilloIntermitente cambia a $colorACambiar")
-        ) // caso 3. => indica que hacia al lado donde apunta es el resultado, en este caso el mensaje a imprimir
-      }
-    }
-*/
-
-/*erroneo 2:
-    def transicion(colorActual: String, colorACambiar: String): List[String] = { 
-      // declare la funcion, como parametro las variables strings
-      (colorActual, colorACambiar) match { // funciona como un cond, donde los 2 parametros se comparan en cada caso
-        case ("en-rojo", "verde") => List(colorActual, "cambiar-a-verde")
-        // caso1. => indica hacia que lado apunta el resultado, en este caso el mensaje a imprimir
-        case ("en-verde", "amarillo") => List(colorActual, "cambiar-a-amarillo")
-        // caso 2. => indica hacia que lado apunta el resultado, en este caso el mensaje a imprimir
-        case ("en-amarillo", "rojo") => List(colorActual, "cambiar-a-rojo")
-        // caso 3. => indica hacia que lado apunta el resultado, en este caso el mensaje a imprimir
-        case _ => List(colorActual, "accion-por-defecto")
-        // caso 4. => indica que si no se cumple con las condiciones anteriores, este devuelve el color actual y accion por defecto
-       }
-    }
-*/
-
 //correcto:
 def transicion(colorActual: String, colorACambiar: String): List[String] = { // declare la funcion, como parametro las variables strings
   (colorActual, colorACambiar) match { // funciona como un cond, donde los 2 parametros se comparan en cada caso
@@ -74,46 +45,6 @@ transicion("en-rojo", "en-verde")
 
 
 /*funcion timer*/
-
-/*erroneo 1:
-    def timer(timestap: Float): String = {//funcion timer que recibe el parametro timestap
-      (timestap % 215.0f) match {//declaro el match con el parametro timestap
-        // Aplicamos el módulo 216.0f para limpiar los ciclos completos, siempre va a valer entre 0 y 215(como si fuera de 1-216).
-        case time if time >= 0.0f && time <= 86f.0 => "en-rojo"
-        // caso 1. => comparamos si esta dentro del rango para ser rojo
-        case time if time >= 86.0f && time <= 89.0f => "en-rojo-intermitente"
-        // caso 2. => comparamos si esta dentro del rango para ser rojo-intermitente
-        case time if time >= 89.0f && time <= 206.0f => "en-verde"
-        // caso 3. => comparamos si esta dentro del rango para ser verde
-        case time if time >= 207.0f && time <= 209.0f => "en-verde-intermitente"
-        // caso 4. => comparamos si esta dentro del rango para ser verde-intermitente
-        case time if time >= 210.0f && time <= 212.0f => "en-amarillo"
-        // caso 5. => comparamos si esta dentro del rango para ser amarillo
-        case time if time >= 213.0f && time <= 215.0f => "en-amarillo-intermitente"
-        // caso 6. => comparamos si esta dentro del rango para ser amarillo-intermitente
-      }
-    }
-*/
-
-/*erroneo 2:
-    def timer(timestap: Float): String = {//funcion timer que recibe el parametro timestap
-      (timestap % 216.0f) match {//declaro el match con el parametro timestap
-        // Aplicamos el módulo 216.0f para limpiar los ciclos completos, siempre va a valer entre 0 y 215.
-        case time if time >= 0.0f && time <= 86f.0 => "en-rojo"
-        // caso 1. => comparamos si esta dentro del rango para ser rojo
-        case time if time >= 86.0f && time <= 89.0f => "en-rojo-intermitente"
-        // caso 2. => comparamos si esta dentro del rango para ser rojo-intermitente
-        case time if time >= 89.0f && time <= 206.0f => "en-verde"
-        // caso 3. => comparamos si esta dentro del rango para ser verde
-        case time if time >= 207.0f && time <= 209.0f => "en-verde-intermitente"
-        // caso 4. => comparamos si esta dentro del rango para ser verde-intermitente
-        case time if time >= 210.0f && time <= 212.0f => "en-amarillo"
-        // caso 5. => comparamos si esta dentro del rango para ser amarillo
-        case time if time >= 213.0f && time <= 215.0f => "en-amarillo-intermitente"
-        // caso 6. => comparamos si esta dentro del rango para ser amarillo-intermitente
-      }
-    }
-*/
 
 //correcto:      
 def timer(timestap: Float): String = {//funcion timer que recibe el parametro timestap
