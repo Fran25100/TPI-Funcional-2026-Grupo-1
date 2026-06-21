@@ -100,7 +100,7 @@
 (defun loggin-Lights (color-actual cambio-color unix-temp)
     (format t "~% Tiempo ~A la luz ah cambiado de color ~A a ~A~%" 
 		(local-time:format-timestring nil (local-time:unix-to-timestamp unix-temp):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2) ":" (:sec 2)))
-			(first (transicion color-actual cambio-color)) (third (transicion color-actual cambio-color))
+			(first (transicion color-actual cambio-color)) (second (transicion color-actual cambio-color))
 	)
 ) 
 
