@@ -9,7 +9,7 @@
 (defun transicion (color-actual cambiar-a)
     (cond
         ((and (eql color-actual 'en-verde-intermitente) (eql cambiar-a 'cambiar-a-amarillo)) (list color-actual "CAMBIAR-A-AMARILLO" ))
-        ((and (eql color-actual 'en-amarillo--intermitente) (eql cambiar-a 'cambiar-a-rojo)) (list color-actual "CAMBIAR-A-ROJO"))
+        ((and (eql color-actual 'en-amarillo-intermitente) (eql cambiar-a 'cambiar-a-rojo)) (list color-actual "CAMBIAR-A-ROJO"))
         ((and (eql color-actual 'en-rojo-intermitente) (eql cambiar-a 'cambiar-a-verde)) (list color-actual "CAMBIAR-A-VERDE" ))
 		((and (eql color-actual 'en-verde) (eql cambiar-a 'cambiar-a-verde-intermitente)) (list color-actual "CAMBIAR-A-VERDE-INTERMITENTE"))
 		((and (eql color-actual 'en-amarillo) (eql cambiar-a 'cambiar-a-amarillo-intermitente)) (list color-actual "CAMBIAR-A-AMARILLO-INTERMITENTE"))
@@ -199,7 +199,7 @@
 (defun calcular-resto-ini (resto-ini)
 	(cond 		; (89 92 212 215 221 224)
         ((<= 0 resto-ini 89) (list (- 90 resto-ini) 3 120 3 6 3)) ; (- 90 resto-ini) --> indica lo consumido por rojo
-        ((<= 89 resto-ini 92) (list 0 (- 93 resto-ini) 120 3 6 3)) ; (- 93 resto-ini) --> indica lo consumido por el rojo-intermitente
+        ((<= 90 resto-ini 92) (list 0 (- 93 resto-ini) 120 3 6 3)) ; (- 93 resto-ini) --> indica lo consumido por el rojo-intermitente
 		((<= 93 resto-ini 212) (list 0 0 (- 213 resto-ini) 3 6 3)) ; (- 213 resto-ini) --> indica lo consumido por verde
         ((<= 213 resto-ini 215) (list 0 0 0 (- 216 resto-ini) 6 3)) ; (- 216 resto-ini) --> indica lo consumido por verde-intermitente
 		((<= 216 resto-ini 221) (list 0 0 0 0 (- 222 resto-ini) 3)) ; (- 222 resto-ini) --> indica lo consumido por amarillo
