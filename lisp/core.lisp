@@ -157,16 +157,16 @@ Impacto En Memoria: No Destructiva, no realiza cambios
 ) )
 ;Casos de prueba
 (loggin-Lights 'en-verde 'cambiar-a-amarillo 1781556453)
-Tiempo 2026-06-15 17:47:33 la luz ah cambiado de color EN-VERDE a CAMBIAR-A-AMARILLO
-NIL
+;Tiempo 2026-06-15 17:47:33 la luz ah cambiado de color EN-VERDE a CAMBIAR-A-AMARILLO
+;NIL
 
 (loggin-Lights 'en-verde 'cambiar-a-rojo 1781556453)
-Tiempo 2026-06-15 17:47:33 la luz ah cambiado de color EN-VERDE a NIL ;caso de error
-NIL
+;Tiempo 2026-06-15 17:47:33 la luz ah cambiado de color EN-VERDE a NIL ;caso de error
+;NIL
 
 (loggin-Lights 'en-rojo 'cambiar-a-verde 1781556492)
-Tiempo 2026-06-15 17:48:12 la luz ah cambiado de color EN-ROJO a CAMBIAR-A-VERDE
-NIL
+;Tiempo 2026-06-15 17:48:12 la luz ah cambiado de color EN-ROJO a CAMBIAR-A-VERDE
+;NIL
 
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCIÓN: duracion-ciclo
@@ -181,11 +181,11 @@ IMPACTO: No destructiva
 )
 ;CASOS DE PRUEBA
 (duracion-ciclo 90 120 6)
-225
+;225
 
 ;otro ciclo
 (duracion-ciclo 40 60 5)
-114
+;114
 
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCIÓN: recomendacion-ciclo
@@ -200,11 +200,11 @@ IMPACTO: No destructiva
 )
 ;Casos de pruena
 (recomendacion-ciclo (duracion-ciclo 90 120 6 ))
-"ciclo no optimo"
+;"ciclo no optimo"
 (recomendacion-ciclo (duracion-ciclo 40 60 6 ))
-"ciclo optimo"
+;"ciclo optimo"
 (recomendacion-ciclo (duracion-ciclo 7 12 5 ))
-"ciclo no optimo"
+;"ciclo no optimo"
 
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCIÓN: ciclos-por-tiempo
@@ -218,10 +218,10 @@ IMPACTO: No destructiva
 )
 ;casos de prueba
 (ciclos-por-tiempo 15)
-"La cantidad de ciclos es de: 4"
+;"La cantidad de ciclos es de: 4"
 
 (ciclos-por-tiempo 70)
-"la cantidad de ciclos es de: 18"
+;"la cantidad de ciclos es de: 18"
 
 #|-------------------------------------------------------------------------------------------------------------------   
 FUNCION AUXILIAR: Calcular-Resto-Ini
@@ -241,19 +241,19 @@ IMPACTO: No destrutiva
 )
 ;CASOS DE PRUEBA
 (calcular-Resto-Ini 5555) ;caso imposible y erroneo
-(0 0 0 0 0 -5330)
+;(0 0 0 0 0 -5330)
 
 (calcular-Resto-Ini 210)
-(0 0 3 3 6 3)
+;(0 0 3 3 6 3)
 
 (calcular-Resto-Ini 1)
-(89 3 120 3 6 3)
+;(89 3 120 3 6 3)
 
 (calcular-Resto-Ini 0) ;caso imposible pero correcto
-(90 3 120 3 6 3)
+;(90 3 120 3 6 3)
 
 (calcular-Resto-Ini 9)
-(81 3 120 3 6 3)
+;(81 3 120 3 6 3)
 	  
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCION AUXILIAR: Calcular-Resto-Fin
@@ -275,22 +275,22 @@ IMPACTO: No destrutiva
 )
 ;;;CAMBIAR CASOS DE PRUEBA
 (Calcular-Resto-Fin 5555) ;mismo caso imposible
-(90 3 120 3 6 5333)
+;(90 3 120 3 6 5333)
 
 (Calcular-Resto-Fin 203)
-(90 3 110 0 0 0)
+;(90 3 110 0 0 0)
 
 (Calcular-Resto-Fin 89)
-(89 0 0 0 0 0)
+;(89 0 0 0 0 0)
 
 (Calcular-Resto-Fin 87)
-(87 0 0 0 0 0)
+;(87 0 0 0 0 0)
 	  
 (Calcular-Resto-Fin 120)
-(90 3 27 0 0 0)
+;(90 3 27 0 0 0)
 
 (Calcular-Resto-Fin 0) ;caso imposible pero correcto
-(0 0 0 0 0 0)
+;(0 0 0 0 0 0)
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCION AUXILIAR: calcular-Porcentajes
 NATURALEZA: Pura (devuelve una lista con los porcentajes de cada estado del semáforo)
@@ -336,16 +336,16 @@ IMPACTO: no destructiva
 ;provocando que todo ciclo que no haya sido consumido al principio, sea consumido al final, dando casi siempre los mismo ciclos
 ;ciclos sin restos 0
 (distribucion-Time 1782065340)
-"| 40.0% rojo| 1.3333334% rojo-intermitente| 53.333332% verde | 1.3333334% verde-intermitente| 2.6666667% amarillo| 1.3333334% amarillo-intermitente|"
+;"| 40.0% rojo| 1.3333334% rojo-intermitente| 53.333332% verde | 1.3333334% verde-intermitente| 2.6666667% amarillo| 1.3333334% amarillo-intermitente|"
 
 (distribucion-Time 6875458)
-"| 40.0% rojo| 1.3333334% rojo-intermitente| 53.333332% verde | 1.3333334% verde-intermitente| 2.6666667% amarillo| 1.3333334% amarillo-intermitente|"
+;"| 40.0% rojo| 1.3333334% rojo-intermitente| 53.333332% verde | 1.3333334% verde-intermitente| 2.6666667% amarillo| 1.3333334% amarillo-intermitente|"
 
 (distribucion-Time 3600) ;ciclo con resto 0
-"| 40.0% rojo| 1.33% rojo-intermitente | 53.33% verde| 1.33% verde-intermitente| 2.66% amarillo| 1.33% amarillo intermitente|"
+;"| 40.0% rojo| 1.33% rojo-intermitente | 53.33% verde| 1.33% verde-intermitente| 2.66% amarillo| 1.33% amarillo intermitente|"
 
 (distribucion-Time 5549)
-"| 40.0% rojo| 1.3333334% rojo-intermitente| 53.333332% verde | 1.3333334% verde-intermitente| 2.6666667% amarillo| 1.3333334% amarillo-intermitente|"
+;"| 40.0% rojo| 1.3333334% rojo-intermitente| 53.333332% verde | 1.3333334% verde-intermitente| 2.6666667% amarillo| 1.3333334% amarillo-intermitente|"
 
 ;*********************************
 ;Extension 2, sistema de datos
