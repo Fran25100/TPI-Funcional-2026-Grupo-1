@@ -16,7 +16,7 @@ IMPACTO: No destructiva
         (t (list color-actual 'accion-por-defecto ))
     )
 )
-#|
+|#
 
 ;;erroneo 2: error de estilo, utilizacion de equal
 #|
@@ -31,7 +31,7 @@ IMPACTO: No destructiva
         (t (list color-actual 'accion-por-defecto))
     )
 )
-#|
+|#
 
 ;;correcto:
 (defun transicion (color-actual cambiar-a)
@@ -87,7 +87,7 @@ Impacto En Memoria: No Destructiva, no realiza cambios
 		(t 'en-amarillo-intermitente) 
     )
 )
-#|
+|#
 
 ;;erroneo 2 : error en valores de casos
 #|	
