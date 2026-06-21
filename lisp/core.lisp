@@ -259,12 +259,12 @@ IMPACTO: no destructiva
 (defun distribucion-Time (unix)
 	(if (zerop (mod unix 225)) "| 40.0% rojo| 1.33% rojo-intermitente | 53.33% verde| 1.33% verde-intermitente| 2.66% amarillo| 1.33% amarillo intermitente|"
 	    (format nil "~%| ~A% rojo| ~A% rojo-intermitente| ~A% verde | ~A% verde-intermitente| ~A% amarillo| ~A% amarillo-intermitente|"
-	    (nth 0 (calcular-Porcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225))))
-		(nth 1 (calcular-Porcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225))))
-	    (nth 2 (calcular-Porcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225))))
-        (nth 3 (calcular-Porcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225))))
-        (nth 4 (calcular-Porcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225))))
-        (nth 5 (calcular-Porcentajes (calcularRestoIni (mod unix 225)) (calcularRestoFin (mod (- 3600 (- 225 (mod unix 225))) 225)))))
+	    (nth 0 (calcular-Porcentajes (calcular-Resto-Ini (mod unix 225)) (Calcular-Resto-Fin (mod (- 3600 (- 225 (mod unix 225))) 225))))
+		(nth 1 (calcular-Porcentajes (calcular-Resto-Ini (mod unix 225)) (Calcular-Resto-Fin (mod (- 3600 (- 225 (mod unix 225))) 225))))
+	    (nth 2 (calcular-Porcentajes (calcular-Resto-Ini (mod unix 225)) (Calcular-Resto-Fin (mod (- 3600 (- 225 (mod unix 225))) 225))))
+        (nth 3 (calcular-Porcentajes (calcular-Resto-Ini (mod unix 225)) (Calcular-Resto-Fin (mod (- 3600 (- 225 (mod unix 225))) 225))))
+        (nth 4 (calcular-Porcentajes (calcular-Resto-Ini (mod unix 225)) (Calcular-Resto-Fin (mod (- 3600 (- 225 (mod unix 225))) 225))))
+        (nth 5 (calcular-Porcentajes (calcular-Resto-Ini (mod unix 225)) (Calcular-Resto-Fin (mod (- 3600 (- 225 (mod unix 225))) 225)))))
     )					
 )
 
@@ -283,7 +283,7 @@ IMPACTO: no destructiva
 "| 40.0% rojo| 1.33% rojo-intermitente | 53.33% verde| 1.33% verde-intermitente| 2.66% amarillo| 1.33% amarillo intermitente|"
 
 (distribucion-Time 5549)
-"| 40.0% rojo| 1.3333334% rojo-intermitente| 53.305557% verde | 1.3333334% verde-intermitente| 2.6666667% amarillo| 1.3333334% amarillo-intermitente|"
+"| 40.0% rojo| 1.3333334% rojo-intermitente| 53.333332% verde | 1.3333334% verde-intermitente| 2.6666667% amarillo| 1.3333334% amarillo-intermitente|"
 
 ;*********************************
 ;Extension 2, sistema de datos
