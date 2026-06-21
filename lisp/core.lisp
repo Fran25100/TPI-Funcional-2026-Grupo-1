@@ -7,7 +7,7 @@ ESTRATEGIA: estructura condicional (implementada con COND), no recursiva, no pre
 IMPACTO: No destructiva
 -------------------------------------------------------------------------------------------------------------------|#
 ;;erroneo 1: error de comprension y estilo, utilizacion de equal y impresicion en cambio de colores
-/*
+#|
 (defun transicion (color-actual cambiar-a)
     (cond
         ((and (equal color-actual 'en-verde) (equal cambiar-a 'cambiar-a-amarillo)) (list color-actual 'verde-intermitente "CAMBIAR-A-AMARILLO" ))
@@ -16,10 +16,10 @@ IMPACTO: No destructiva
         (t (list color-actual 'accion-por-defecto ))
     )
 )
-*/
+#|
 
 ;;erroneo 2: error de estilo, utilizacion de equal
-/*
+#|
 (defun transicion (color-actual cambiar-a)
     (cond
         ((and (equal color-actual 'en-verde-intermitente) (equal cambiar-a 'cambiar-a-amarillo)) (list color-actual "CAMBIAR-A-AMARILLO" ))
@@ -31,9 +31,9 @@ IMPACTO: No destructiva
         (t (list color-actual 'accion-por-defecto))
     )
 )
-*/
+#|
 
-;correcto:
+;;correcto:
 (defun transicion (color-actual cambiar-a)
     (cond
         ((and (eql color-actual 'en-verde-intermitente) (eql cambiar-a 'cambiar-a-amarillo)) (list color-actual "CAMBIAR-A-AMARILLO" ))
@@ -74,33 +74,35 @@ Naturaleza: Pura
 Estrategia: estructura condicional(implementada con COND y MOD), no recursiva, no predicado, no utiliza funciones de orden superior
 Impacto En Memoria: No Destructiva, no realiza cambios
 -------------------------------------------------------------------------------------------------------------------|#
-/*erroneo  1 : error en valor de ciclo(216)
-	(defun timer (timestap) ;cuando tenes un semaforo, al terminar el tiempo de rojo, no se le suma +3 de intermitencia al rojo
-									 ;la intermitencia empieza a cambiar en los ultimos 3 segundos de cada color
-        (cond
-            ((<= 0 (mod timestap 216) 86) 'en-rojo )
-            ((<= 87 (mod timestap 216) 89) 'en-rojo-intermitente )
-            ((<= 90 (mod timestap 216) 206) 'en-verde )
-            ((<= 207 (mod timestap 216) 209) 'en-verde-intermitente )
-            ((<= 210 (mod timestap 216) 212) 'en-amarillo )
-			 (t 'en-amarillo-intermitente) 
-    	)
-	)
-*/
+;;erroneo  1 : error en valor de ciclo(216)
+#|
+(defun timer (timestap) ;cuando tenes un semaforo, al terminar el tiempo de rojo, no se le suma +3 de intermitencia al rojo
+	;la intermitencia empieza a cambiar en los ultimos 3 segundos de cada color
+    (cond
+        ((<= 0 (mod timestap 216) 86) 'en-rojo )
+        ((<= 87 (mod timestap 216) 89) 'en-rojo-intermitente )
+        ((<= 90 (mod timestap 216) 206) 'en-verde )
+        ((<= 207 (mod timestap 216) 209) 'en-verde-intermitente )
+        ((<= 210 (mod timestap 216) 212) 'en-amarillo )
+		(t 'en-amarillo-intermitente) 
+    )
+)
+#|
 
-/*erroneo 2 : error en valores de casos
-	(defun timer (timestap) ;cuando tenes un semaforo, al terminar el tiempo de rojo, no se le suma +3 de intermitencia al rojo
-									 ;la intermitencia empieza a cambiar en los ultimos 3 segundos de cada color
-        (cond
-			((<= 0 (mod timestap 225) 89) 'en-rojo )
-            ((<= 90 (mod timestap 225) 92) 'en-rojo-intermitente )
-            ((<= 93 (mod timestap 225) 209) 'en-verde )
-            ((<= 210 (mod timestap 225) 212) 'en-verde-intermitente )
-            ((<= 213 (mod timestap 225) 215) 'en-amarillo )
-			(t 'en-amarillo-intermitente) 
-    	)
-	)
-*/
+;;erroneo 2 : error en valores de casos
+#|	
+(defun timer (timestap) ;cuando tenes un semaforo, al terminar el tiempo de rojo, no se le suma +3 de intermitencia al rojo
+	;la intermitencia empieza a cambiar en los ultimos 3 segundos de cada color
+    (cond
+		((<= 0 (mod timestap 225) 89) 'en-rojo )
+        ((<= 90 (mod timestap 225) 92) 'en-rojo-intermitente )
+        ((<= 93 (mod timestap 225) 209) 'en-verde )
+        ((<= 210 (mod timestap 225) 212) 'en-verde-intermitente )
+        ((<= 213 (mod timestap 225) 215) 'en-amarillo )
+		(t 'en-amarillo-intermitente) 
+    )
+)
+|#
 
 ;correcto
 (defun timer (timestap)
