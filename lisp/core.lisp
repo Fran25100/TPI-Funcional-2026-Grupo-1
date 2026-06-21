@@ -144,7 +144,7 @@ Impacto En Memoria: No Destructiva, no realiza cambios
 #|-------------------------------------------------------------------------------------------------------------------
 Funcion: Loggin-Lights
 Naturaleza: Impura (por FORMAT T escribe en pantalla segun los datos de entrada)
-Estrategia: Simple (implementada con FORMAT )
+Estrategia: Simple (implementada con FORMAT), no recursiva, no predicado, no utiliza funciones de orden superior
 Impacto En Memoria: No Destructiva, no realiza cambios
 -------------------------------------------------------------------------------------------------------------------|#
 ;correcion: se automatizo el tiempo para que sea calculado directamente dentro de esta funcion, en vez de un tiempo que puede estar
@@ -190,7 +190,7 @@ IMPACTO: No destructiva
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCIÓN: recomendacion-ciclo
 NATURALEZA: Pura
-ESTRATEGIA: condicional simple (condicional IF)
+ESTRATEGIA: condicional simple (condicional IF), no recursiva, no predicado, no utiliza funciones de orden superior
 IMPACTO: No destructiva
 -------------------------------------------------------------------------------------------------------------------|#
 ; requerimiento 4.b
@@ -209,7 +209,7 @@ IMPACTO: No destructiva
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCIÓN: ciclos-por-tiempo
 NATURALEZA: Impura (escribe en pantalla un resultado dependiendo de los minutos de entrada)
-ESTRATEGIA: estructura secuencial (no presenta recursion en su implementacion)
+ESTRATEGIA: estructura secuencial (no presenta recursion en su implementacion), no recursiva, no predicado, no utiliza funciones de orden superior
 IMPACTO: No destructiva
 -------------------------------------------------------------------------------------------------------------------|#
 (defun ciclos-por-tiempo (minutos)
@@ -226,7 +226,7 @@ IMPACTO: No destructiva
 #|-------------------------------------------------------------------------------------------------------------------   
 FUNCION AUXILIAR: Calcular-Resto-Ini
 NATURALEZA: pura (dependiendo del resto que recibe, retorna un resultado)
-ESTRATEGIA: alternativa Multiple (cond)
+ESTRATEGIA: alternativa Multiple (cond), no recursiva, no predicado, no utiliza funciones de orden superior
 IMPACTO: No destrutiva
 -------------------------------------------------------------------------------------------------------------------|#
 (defun calcular-Resto-Ini (restoIni)
@@ -258,7 +258,7 @@ IMPACTO: No destrutiva
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCION AUXILIAR: Calcular-Resto-Fin
 NATURALEZA: pura (dependiendo del resto que recibe, retorna un resultado)
-ESTRATEGIA: alternativa Multiple (cond)
+ESTRATEGIA: alternativa Multiple (cond), no recursiva, no predicado, no utiliza funciones de orden superio
 IMPACTO: No destrutiva
 -------------------------------------------------------------------------------------------------------------------|#
 
@@ -294,7 +294,8 @@ IMPACTO: No destrutiva
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCION AUXILIAR: calcular-Porcentajes
 NATURALEZA: Pura (devuelve una lista con los porcentajes de cada estado del semáforo)
-ESTRATEGIA: Secuencial (implementamos mediante operaciones aritméticas y la construcción de listas)
+ESTRATEGIA: Secuencial (implementamos mediante operaciones aritméticas y la construcción de listas), no recursiva, no predicado, 
+no utiliza funciones de orden superio
 IMPACTO: No destructiva
 -------------------------------------------------------------------------------------------------------------------|#
 ;como ahora el ciclo es de 225, en 3600 entran 16 ciclos exactos, lo que se sabe es que 15 entran si o si, y hay que determinar que paso con el ultimo,
@@ -313,7 +314,7 @@ IMPACTO: No destructiva
 #|-------------------------------------------------------------------------------------------------------------------
 FUNCION: distribucion-Time
 NATURALEZA: impura (escribe en pantalla y en un archivo)
-ESTRATEGIA: secuencial, condicional doble (implementada con if, format y nth)
+ESTRATEGIA: secuencial, condicional doble (implementada con if, format y nth), no recursiva, no predicado, no utiliza funciones de orden superio
 IMPACTO: no destructiva
 -------------------------------------------------------------------------------------------------------------------|#
 ;actualizado
