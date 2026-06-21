@@ -3,10 +3,10 @@
 #|-------------------------------------------------------------------------------------------------------------------
 Funcion: Transicion
 NATURALEZA: Pura
-ESTRATEGIA: estructura condicional (implementada con COND)
+ESTRATEGIA: estructura condicional (implementada con COND), no recursiva, no predicado, no utiliza funciones de orden superior
 IMPACTO: No destructiva
 -------------------------------------------------------------------------------------------------------------------|#
-;;erroneo 1
+;;erroneo 1: error de comprension y estilo, utilizacion de equal y impresicion en cambio de colores
 /*
 (defun transicion (color-actual cambiar-a)
     (cond
@@ -18,7 +18,7 @@ IMPACTO: No destructiva
 )
 */
 
-;;erroneo 2
+;;erroneo 2: error de estilo, utilizacion de equal
 /*
 (defun transicion (color-actual cambiar-a)
     (cond
@@ -33,6 +33,7 @@ IMPACTO: No destructiva
 )
 */
 
+;correcto:
 (defun transicion (color-actual cambiar-a)
     (cond
         ((and (eql color-actual 'en-verde-intermitente) (eql cambiar-a 'cambiar-a-amarillo)) (list color-actual "CAMBIAR-A-AMARILLO" ))
@@ -70,10 +71,38 @@ IMPACTO: No destructiva
 #|-------------------------------------------------------------------------------------------------------------------
 Funcion: timer
 Naturaleza: Pura
-Estrategia: Simple (implementada con MOD y COND)
+Estrategia: estructura condicional(implementada con COND y MOD), no recursiva, no predicado, no utiliza funciones de orden superior
 Impacto En Memoria: No Destructiva, no realiza cambios
 -------------------------------------------------------------------------------------------------------------------|#
+/*erroneo  1 : error en valor de ciclo(216)
+	(defun timer (timestap) ;cuando tenes un semaforo, al terminar el tiempo de rojo, no se le suma +3 de intermitencia al rojo
+									 ;la intermitencia empieza a cambiar en los ultimos 3 segundos de cada color
+        (cond
+            ((<= 0 (mod timestap 216) 86) 'en-rojo )
+            ((<= 87 (mod timestap 216) 89) 'en-rojo-intermitente )
+            ((<= 90 (mod timestap 216) 206) 'en-verde )
+            ((<= 207 (mod timestap 216) 209) 'en-verde-intermitente )
+            ((<= 210 (mod timestap 216) 212) 'en-amarillo )
+			 (t 'en-amarillo-intermitente) 
+    	)
+	)
+*/
 
+/*erroneo 2 : error en valores de casos
+	(defun timer (timestap) ;cuando tenes un semaforo, al terminar el tiempo de rojo, no se le suma +3 de intermitencia al rojo
+									 ;la intermitencia empieza a cambiar en los ultimos 3 segundos de cada color
+        (cond
+			((<= 0 (mod timestap 225) 89) 'en-rojo )
+            ((<= 90 (mod timestap 225) 92) 'en-rojo-intermitente )
+            ((<= 93 (mod timestap 225) 209) 'en-verde )
+            ((<= 210 (mod timestap 225) 212) 'en-verde-intermitente )
+            ((<= 213 (mod timestap 225) 215) 'en-amarillo )
+			(t 'en-amarillo-intermitente) 
+    	)
+	)
+*/
+
+;correcto
 (defun timer (timestap)
         (cond			;(89 92 212 215 221 224)
             ((<= 0 (mod timestap 225) 89) 'en-rojo )
@@ -85,26 +114,30 @@ Impacto En Memoria: No Destructiva, no realiza cambios
     )
 )
 
+;;casos de prueba
+(timer 214)
+;EN-VERDE-INTERMITENTE
+
 (timer 3592)
-EN-AMARILLO
+;EN-AMARILLO
 
 (timer 3593)
-EN-AMARILLO
+;EN-AMARILLO
 
 (timer 3595)
-EN-AMARILLO
+;EN-AMARILLO
 
 (timer 3598)
-EN-AMARILLO-INTERMITENTE
+;EN-AMARILLO-INTERMITENTE
 
 (timer 5716)
-EN-ROJO-INTERMITENTE
+;EN-ROJO-INTERMITENTE
 
 (timer 5713)
-EN-ROJO
+;EN-ROJO
 
 (timer 5723)
-EN-VERDE
+;EN-VERDE
 
 #|-------------------------------------------------------------------------------------------------------------------
 Funcion: Loggin-Lights
