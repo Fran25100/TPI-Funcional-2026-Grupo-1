@@ -372,17 +372,21 @@
  	(with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output :if-exists :append :if-does-not-exist :create)
    	(format stream "~%=========================================~%")
    	(format stream "~A transicion: ~A --> ~A~%"
-   	(local-time:format-timestring nil (local-time:unix-to-timestamp unixtemp)
+   	(local-time:format-timestring nil (local-time:unix-to-timestamp unix-temp)
 	:format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2) ":" (:sec 2)))
-    (car (transicion color-actual cambio-color)) (caddr (transicion color-actual cambio-color)) )
+    (first (transicion color-actual cambio-color)) (second (transicion color-actual cambio-color)) )
  	)
 	; pasandole loggin para ver en pantalla
-   (logginLights color-actual cambio-color unix-temp)
+   (loggin-Lights color-actual cambio-color unix-temp)
 )
 
-(informe 'en-verde 'cambiar-a-amarillo 1742163000)
-(informe 'en-verde 'cambiar-a-rojo 1742163000)
-(informe 'en-amarillo 'cambiar-a-rojo 1718484493)
+;; 2025-03-16 22:10:00 transicion: EN-VERDE --> CAMBIAR-A-VERDE-INTERMITENTE
+(informe 'en-verde 'cambiar-a-verde-intermitente 1742163000)
+;; 2025-03-16 22:10:00 transicion: EN-VERDE --> CAMBIAR-A-VERDE-INTERMITENTE
+(informe 'en-verde 'cambiar-a-verde-intermitente 1742163000)
+;; 2024-06-15 20:48:13 transicion: EN-AMARILLO --> CAMBIAR-A-AMARILLO-INTERMITENTE
+(informe 'en-amarillo 'cambiar-a-amarillo-intermitente 1718484493)
+                               
                                    
 ;; cierra el informe
 (cerrar-informe)
