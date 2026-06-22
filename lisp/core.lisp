@@ -312,8 +312,7 @@
 )
 
 ;; CASOS DE PRUEBA
-;; lo cambiamos a first/second ya que utilizar car/cdr duplicaba o utilizaba algunos valores erroneos
-;; y utilizar nth no cumplia con el esstilo
+;; lo cambiamos a first/second ya que utilizar car/cdr y utilizar nth no cumplia con el esstilo
 ;; una cosa importante, es que al estar actualizado con ciclo de 225,
 ;; provoca que entren en 1 hora exactamente 16 cilos enteros
 ;; provocando que todo ciclo que no haya sido consumido al principio,
